@@ -1,10 +1,20 @@
-import Product from '@/components/product';
-import ProductModal from '@/components/productModal';
-import ModalContext from '@/contexts/ProductModalContext';
+import Product from '@/components/Product';
+import ProductModal from '@/components/ProductModal';
+import ModalContext from '@/contexts/ProductContext';
 import { NextPage } from 'next';
 import { useState } from 'react';
 
-type DataType = Response | string;
+interface HomeProps {
+    data: DataType;
+    fetchState: FetchState;
+}
+
+interface DataType {
+    mealList: Meal[] | null;
+    state: FetchState;
+}
+
+type FetchState = 'ok' | 'loading' | Error;
 
 export interface Meal {
     strMeal: string;
@@ -12,62 +22,65 @@ export interface Meal {
     strMealThumb: string;
 }
 
-interface HomeProps {
-    mealList: Meal[];
-}
-
 export async function getStaticProps() {
-    let data: DataType;
+    const data: DataType = { mealList: null, state: 'loading' };
     try {
         const dataResponse = await fetch(
             process.env.PRODUCT_LIST_LINK as string,
         );
 
         const jsonData = await dataResponse.json();
-
-        data = jsonData.meals;
+        data.mealList = jsonData.meals;
+        data.state = 'ok';
     } catch {
-        data = 'failed to fetch product list';
+        data.mealList = null;
+        data.state = new Error('failed to fetch data');
     }
 
     return {
-        props: { mealList: data },
+        props: { data: data },
     };
 }
 
-const Home: NextPage<HomeProps> = (props) => {
-    const [product, setProduct] = useState<Meal | null>(null);
-    const [onCloseProductModal, setOnCloseProductModal] = useState(true);
+const Home: NextPage<HomeProps> = ({ data }: HomeProps) => {
+    const [mealFromProduct, setMealToModal] = useState<Meal | null>(null);
+    const [isProductModalClosed, setOnCloseProductModal] = useState(true);
 
     return (
-        <>
-            <main className="o-home-page">
+        <div
+            className="o-home-page"
+            onClick={() => {
+                !isProductModalClosed && setOnCloseProductModal(true);
+            }}
+        >
+            <main>
                 <section className="o-product-list">
-                    {props.mealList.map((meal: Meal) => (
-                        <Product
-                            key={meal.idMeal}
-                            meal={meal}
-                            mealToModal={getMeal}
-                            onCloseModal={setOnCloseProductModal}
-                        />
-                    ))}
+                    {renderProductList()}
                 </section>
-                <ModalContext.Provider
-                    value={{
-                        meal: product,
-                        isClosed: onCloseProductModal,
-                        onClose: () => setOnCloseProductModal(true),
-                    }}
-                >
-                    <ProductModal />
+                <ModalContext.Provider value={mealFromProduct}>
+                    <ProductModal isClosed={isProductModalClosed} />
                 </ModalContext.Provider>
             </main>
             <footer></footer>
-        </>
+        </div>
     );
 
-    function getMeal(product: Meal) {
-        setProduct(product);
+    function getMeal(meal: Meal) {
+        setMealToModal(meal);
+    }
+
+    function renderProductList() {
+        if (data.state === 'loading') return 'loading...';
+        if (data.state instanceof Error)
+            return 'There was a problem to render the product list';
+        return (data.mealList as Meal[]).map((meal) => (
+            <Product
+                key={meal.idMeal}
+                meal={meal}
+                mealToModal={getMeal}
+                onOpenModal={setOnCloseProductModal}
+            />
+        ));
     }
 };
 

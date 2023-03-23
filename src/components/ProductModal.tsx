@@ -1,16 +1,21 @@
-import ProductModalContext, {
-    ProductModalTypes,
-} from '@/contexts/ProductModalContext';
+import ProductContext from '@/contexts/ProductContext';
 import { useContext } from 'react';
 
-export default function ProductModal() {
-    const content = useContext<ProductModalTypes>(
-        ProductModalContext as ProductModalTypes,
-    );
+interface ProductModalProps {
+    isClosed: boolean;
+}
+
+export default function ProductModal({ isClosed }: ProductModalProps) {
+    const meal = useContext(ProductContext);
 
     return (
-        <div className="o-product-modal">
-            {content.meal && <div>{content.meal.idMeal}</div>}
+        <div
+            onClick={(e) => e.stopPropagation()}
+            className={`o-product-modal ${isClosed ? 'is-closed' : ''}`}
+        >
+            <div onClick={(e) => e.stopPropagation()} className="o-content">
+                {meal && <div>{meal.idMeal}</div>}
+            </div>
         </div>
     );
 }

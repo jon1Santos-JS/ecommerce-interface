@@ -1,8 +1,14 @@
 .o-product-modal{
+    box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 100%;
     z-index: var(--modal-index);
+    background-color: aqua;
+    height: 100%;
+    width: 100%;
+    padding: calc(var(--app-base-measure) * 4);
+    top: 0;
+    left: 0;
 
     & .o-conent{
         width: 80%;
