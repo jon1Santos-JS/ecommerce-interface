@@ -1,0 +1,10 @@
+.o-product-modal{
+    display: block;
+    position: absolute;
+    width: 100%;
+    z-index: var(--modal-index);
+
+    & .o-conent{
+        width: 80%;
+    }
+}

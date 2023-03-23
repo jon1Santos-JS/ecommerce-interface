@@ -1,0 +1,8 @@
+.o-product-list{
+    display: grid;
+    grid-gap: calc(var(--app-base-measure) * 4);
+    grid-template-columns: repeat(auto-fit, minmax(calc(var(--app-base-measure) * 20), 1fr));
+    justify-content: center;
+    justify-items: center;
+    padding: calc(var(--app-base-measure) * 4);
+}

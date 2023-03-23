@@ -1,8 +1,13 @@
+import Product from '@/components/product';
+import ProductModal from '@/components/productModal';
+import ModalContext from '@/contexts/ProductModalContext';
 import { NextPage } from 'next';
+import { useState } from 'react';
 
 type DataType = Response | string;
 
-interface Meal {
+export interface Meal {
+    strMeal: string;
     idMeal: string;
     strMealThumb: string;
 }
@@ -22,7 +27,7 @@ export async function getStaticProps() {
 
         data = jsonData.meals;
     } catch {
-        data = 'failed to fetch data';
+        data = 'failed to fetch product list';
     }
 
     return {
@@ -31,14 +36,39 @@ export async function getStaticProps() {
 }
 
 const Home: NextPage<HomeProps> = (props) => {
-    console.log(props.mealList);
+    const [product, setProduct] = useState<Meal | null>(null);
+    const [onCloseProductModal, setOnCloseProductModal] = useState(true);
+
     return (
-        <div>
-            {props.mealList.map((meal: Meal) => (
-                <div key={meal.idMeal}>{meal.strMealThumb}</div>
-            ))}
-        </div>
+        <>
+            <main className="o-home-page">
+                <section className="o-product-list">
+                    {props.mealList.map((meal: Meal) => (
+                        <Product
+                            key={meal.idMeal}
+                            meal={meal}
+                            mealToModal={getMeal}
+                            onCloseModal={setOnCloseProductModal}
+                        />
+                    ))}
+                </section>
+                <ModalContext.Provider
+                    value={{
+                        meal: product,
+                        isClosed: onCloseProductModal,
+                        onClose: () => setOnCloseProductModal(true),
+                    }}
+                >
+                    <ProductModal />
+                </ModalContext.Provider>
+            </main>
+            <footer></footer>
+        </>
     );
+
+    function getMeal(product: Meal) {
+        setProduct(product);
+    }
 };
 
 export default Home;
