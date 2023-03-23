@@ -13,6 +13,21 @@ export default function Product({
     mealToModal,
     onOpenModal,
 }: ProductProps) {
+    const priority = meal.idMeal === '52855' ? true : undefined;
+    const productImage = (
+        <Image
+            loader={imageLoader}
+            src={meal.strMealThumb}
+            style={{ objectFit: 'cover' }}
+            fill={true}
+            alt={meal.strMeal}
+            priority={priority}
+            sizes="(max-width: 768px) 100vw,
+    (max-width: 1200px) 50vw,
+    33vw"
+        ></Image>
+    );
+
     return (
         <div
             className="o-product"
@@ -22,18 +37,7 @@ export default function Product({
             }}
         >
             <div className="content">
-                <div className="product-image">
-                    <Image
-                        loader={imageLoader}
-                        src={meal.strMealThumb}
-                        style={{ objectFit: 'cover' }}
-                        fill={true}
-                        alt={meal.strMeal}
-                        sizes="(max-width: 768px) 100vw,
-                        (max-width: 1200px) 50vw,
-                        33vw"
-                    ></Image>
-                </div>
+                <div className="product-image">{productImage}</div>
                 <h2>{meal.strMeal}</h2>
             </div>
         </div>
