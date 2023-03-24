@@ -1,15 +1,16 @@
 .o-product{
     background-color: rgb(67, 181, 36);
-    width: 200px;
+    width: 100%;
 
     & .content{
         width: 100%;
+        font-size: var(--app-base-font-size);
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     & .product-image{
-        width: 100%;
-        height: 200px;
-        display: block;
         position: relative;
+        height: calc(var(--app-base-element-measure) * 15);
     }
 }

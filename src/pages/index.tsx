@@ -1,6 +1,6 @@
+import BagModal from '@/components/BagModal';
 import Product from '@/components/Product';
 import ProductModal from '@/components/ProductModal';
-import ModalContext from '@/contexts/ProductContext';
 import { NextPage } from 'next';
 import { useState } from 'react';
 
@@ -37,21 +37,25 @@ export async function getStaticProps() {
 const Home: NextPage<HomeProps> = ({ productList }: HomeProps) => {
     const [mealFromProduct, setMealToModal] = useState<Meal | null>(null);
     const [isProductModalClosed, setOnCloseProductModal] = useState(true);
+    const [isBagModalClosed, setOnCloseBagModal] = useState(true);
 
     return (
         <div
             className="o-home-page"
             onClick={() => {
                 !isProductModalClosed && setOnCloseProductModal(true);
+                !isBagModalClosed && setOnCloseBagModal(true);
             }}
         >
             <main>
                 <section className="o-product-list">
                     {renderProductList()}
                 </section>
-                <ModalContext.Provider value={mealFromProduct}>
-                    <ProductModal isClosed={isProductModalClosed} />
-                </ModalContext.Provider>
+                <BagModal isClosed={isBagModalClosed} />
+                <ProductModal
+                    isClosed={isProductModalClosed}
+                    meal={mealFromProduct as Meal}
+                />
             </main>
             <footer></footer>
         </div>

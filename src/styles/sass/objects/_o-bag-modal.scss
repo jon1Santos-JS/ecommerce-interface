@@ -1,0 +1,9 @@
+.o-bag-modal{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: var(--modal-index);
+    background-color: black;
+    height: 200px;
+    width: 200px;
+}

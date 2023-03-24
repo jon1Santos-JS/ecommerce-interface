@@ -3,6 +3,7 @@
 
     --app-base-measure: 8px;
     --app-base-font-size: clamp(0.5vw + var(--app-base-measure), var(--app-base-measure) * 1.6, 1.5vw + var(--app-base-measure));
+    --app-base-element-measure: clamp(0.5vw + var(--app-base-measure), var(--app-base-measure) * 1.6, 1.5vw + var(--app-base-measure));
 
     //SHADOW-EFFECT
 

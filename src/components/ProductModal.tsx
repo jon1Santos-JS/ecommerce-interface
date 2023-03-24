@@ -1,13 +1,29 @@
-import ProductContext from '@/contexts/ProductContext';
-import { useContext } from 'react';
 import Image, { ImageLoaderProps } from 'next/image';
+import { Meal } from '@/pages';
 
 interface ProductModalProps {
     isClosed: boolean;
+    meal: Meal;
 }
 
-export default function ProductModal({ isClosed }: ProductModalProps) {
-    const meal = useContext(ProductContext);
+export default function ProductModal({ isClosed, meal }: ProductModalProps) {
+    const productImage = meal && (
+        <div>
+            <div className="product-image">
+                <Image
+                    loader={imageLoader}
+                    src={meal.strMealThumb}
+                    width={200}
+                    height={200}
+                    alt={meal.strMeal}
+                    sizes="(max-width: 768px) 100vw,
+            (max-width: 1200px) 50vw,
+            33vw"
+                ></Image>
+            </div>
+            <div className="product-info">{meal.idMeal}</div>
+        </div>
+    );
 
     return (
         <div
@@ -15,23 +31,7 @@ export default function ProductModal({ isClosed }: ProductModalProps) {
             className={`o-product-modal ${isClosed ? 'is-closed' : ''}`}
         >
             <div onClick={(e) => e.stopPropagation()} className="content">
-                {meal && (
-                    <div>
-                        <div className="product-image">
-                            <Image
-                                loader={imageLoader}
-                                src={meal.strMealThumb}
-                                width={200}
-                                height={200}
-                                alt={meal.strMeal}
-                                sizes="(max-width: 768px) 100vw,
-                        (max-width: 1200px) 50vw,
-                        33vw"
-                            ></Image>
-                        </div>
-                        <div className="product-info">{meal.idMeal}</div>
-                    </div>
-                )}
+                {productImage}
             </div>
         </div>
     );
