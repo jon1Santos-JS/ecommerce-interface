@@ -1,0 +1,15 @@
+.o-product-page{
+    height: 100%;
+
+    & .content{
+        height: 300px;
+
+        & .image{
+            height: 200px;
+        }
+
+        & .info{
+            height: 50px;
+        }
+    }
+}

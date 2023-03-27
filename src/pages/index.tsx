@@ -1,41 +1,22 @@
 import BagModal from '@/components/BagModal';
 import Product from '@/components/Product';
-import ProductModal from '@/components/ProductModal';
 import { NextPage } from 'next';
 import { useState } from 'react';
+import { DataType, requestMealList } from '../lib/requestMealList';
 
 interface HomeProps {
-    productList: DataType;
-}
-
-type DataType = Meal[] | null | Error;
-
-export interface Meal {
-    strMeal: string;
-    idMeal: string;
-    strMealThumb: string;
+    mealList: DataType;
 }
 
 export async function getStaticProps() {
-    let data: DataType = null;
-    try {
-        const dataResponse = await fetch(
-            process.env.PRODUCT_LIST_LINK as string,
-        );
-
-        const jsonData = await dataResponse.json();
-        data = jsonData.meals;
-    } catch {
-        data = new Error('failed to fetch data');
-    }
+    const mealList = await requestMealList();
 
     return {
-        props: { productList: data },
+        props: { mealList },
     };
 }
 
-const Home: NextPage<HomeProps> = ({ productList }: HomeProps) => {
-    const [mealFromProduct, setMealToModal] = useState<Meal | null>(null);
+const Home: NextPage<HomeProps> = ({ mealList }: HomeProps) => {
     const [isProductModalClosed, setOnCloseProductModal] = useState(true);
     const [isBagModalClosed, setOnCloseBagModal] = useState(true);
 
@@ -52,28 +33,18 @@ const Home: NextPage<HomeProps> = ({ productList }: HomeProps) => {
                     {renderProductList()}
                 </section>
                 <BagModal isClosed={isBagModalClosed} />
-                <ProductModal
-                    isClosed={isProductModalClosed}
-                    meal={mealFromProduct as Meal}
-                />
             </main>
             <footer></footer>
         </div>
     );
 
-    function getMeal(meal: Meal) {
-        setMealToModal(meal);
-    }
-
     function renderProductList() {
-        return (productList as Meal[]).map((meal) => (
-            <Product
-                key={meal.idMeal}
-                meal={meal}
-                mealToModal={getMeal}
-                onOpenModal={setOnCloseProductModal}
-            />
-        ));
+        if (mealList && typeof mealList !== 'string') {
+            return mealList.map((meal) => (
+                <Product key={meal.idMeal} meal={meal} />
+            ));
+        }
+        return null;
     }
 };
 

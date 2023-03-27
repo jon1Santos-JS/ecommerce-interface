@@ -1,18 +1,12 @@
-import { Meal } from '@/pages';
+import { Meal } from '@/lib/requestMealList';
 import Image, { ImageLoaderProps } from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
+import Link from 'next/link';
 
 interface ProductProps {
     meal: Meal;
-    mealToModal: (meal: Meal) => void;
-    onOpenModal: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Product({
-    meal,
-    mealToModal,
-    onOpenModal,
-}: ProductProps) {
+export default function Product({ meal }: ProductProps) {
     const priority = meal.idMeal === '52855' ? true : undefined;
     const productImage = (
         <Image
@@ -29,18 +23,12 @@ export default function Product({
     );
 
     return (
-        <div
-            className="o-product"
-            onClick={() => {
-                mealToModal(meal);
-                onOpenModal(false);
-            }}
-        >
+        <Link className="o-product" href={`products/${meal.idMeal}`}>
             <div className="content">
                 <div className="product-image">{productImage}</div>
                 <h2>{meal.strMeal}</h2>
             </div>
-        </div>
+        </Link>
     );
 
     function imageLoader({ src, width }: ImageLoaderProps) {
