@@ -1,6 +1,7 @@
 import { Meal, requestMealList } from '@/lib/requestMealList';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import Image, { ImageLoaderProps } from 'next/image';
+import { useRouter } from 'next/router';
 
 interface ProductPageProps {
     product: Meal;
@@ -34,7 +35,7 @@ export async function getStaticProps({ params }: Params) {
 }
 
 export default function ProductPage({ product }: ProductPageProps) {
-    console.log(product);
+    const router = useRouter();
     const productImage = product && (
         <div>
             <div className="image">
@@ -52,6 +53,10 @@ export default function ProductPage({ product }: ProductPageProps) {
             <div className="info">{product.idMeal}</div>
         </div>
     );
+
+    if (router.isFallback) {
+        return <div>loading...</div>;
+    }
 
     return (
         <div className="o-product-page">
