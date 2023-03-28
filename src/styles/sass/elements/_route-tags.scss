@@ -13,5 +13,7 @@ button{
     background: none;
     border: 0;
     padding: 0;
-
+    &:visited{
+        color: inherit;
+    }
 }
