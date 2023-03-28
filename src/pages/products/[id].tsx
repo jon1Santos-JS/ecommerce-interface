@@ -1,66 +1,63 @@
-import { Meal, requestMealList } from '@/lib/requestMealList';
+import { DataType, Meal, requestMealList } from '@/lib/requestMealList';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import Image, { ImageLoaderProps } from 'next/image';
-import { useRouter } from 'next/router';
 
 interface ProductPageProps {
-    product: Meal;
+    meal: Meal | null;
 }
 
 export async function getStaticPaths() {
-    const mealList = await requestMealList();
-    let paths;
+    const mealList: DataType = await requestMealList();
 
-    if (mealList && typeof mealList !== 'string') {
-        paths = mealList.map((meal) => ({
-            params: { id: meal.idMeal },
-        }));
-    }
+    if (mealList instanceof Error) return { paths: '', fallback: false };
+
+    const paths = mealList.map((meal) => ({
+        params: { id: meal.idMeal },
+    }));
 
     return { paths: paths, fallback: false };
 }
 
 export async function getStaticProps({ params }: Params) {
-    const mealList = await requestMealList();
-    let product;
+    const mealList: DataType = await requestMealList();
 
-    if (mealList && typeof mealList !== 'string') {
-        product = mealList.reduce((product, array) => {
-            if (product.idMeal === params.id) return product;
-            return array;
-        });
-    }
+    if (mealList instanceof Error) return { props: { meal: null } };
 
-    return { props: { product } };
+    const meal = mealList.reduce((meal, array) => {
+        if (meal.idMeal === params.id) return meal;
+        return array;
+    });
+
+    return { props: { meal } };
 }
 
-export default function ProductPage({ product }: ProductPageProps) {
-    const router = useRouter();
-    const productImage = product && (
+export default function ProductPage({ meal }: ProductPageProps) {
+    const priority = meal && meal.idMeal === '52855' ? true : undefined;
+    const productImage = meal && (
         <div>
             <div className="image">
                 <Image
                     loader={imageLoader}
-                    src={product.strMealThumb}
+                    src={meal.strMealThumb}
+                    placeholder="blur"
+                    blurDataURL={meal.strMealThumb}
                     width={200}
                     height={200}
-                    alt={product.strMeal}
+                    alt={meal.strMeal}
+                    priority={priority}
                     sizes="(max-width: 768px) 100vw,
             (max-width: 1200px) 50vw,
             33vw"
                 ></Image>
             </div>
-            <div className="info">{product.idMeal}</div>
         </div>
     );
 
-    if (router.isFallback) {
-        return <div>loading...</div>;
-    }
-
     return (
         <div className="o-product-page">
-            <div className="content">{productImage}</div>
+            <div className="content">
+                {productImage ? productImage : 'meal was not found'}
+            </div>
         </div>
     );
 

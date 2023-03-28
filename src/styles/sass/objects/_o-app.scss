@@ -1,0 +1,9 @@
+.o-app{
+    & .close-modals{
+        position: fixed;
+        z-index: var(--modal-index);
+        width: 100%;
+        bottom: 0;
+        height: calc(100% - var(--app-base-measure) * 6);
+    }
+}

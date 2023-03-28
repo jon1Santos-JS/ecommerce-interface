@@ -4,7 +4,10 @@ interface BagModalProps {
 
 export default function BagModal({ isClosed }: BagModalProps) {
     return (
-        <div className={`o-bag-modal ${isClosed ? 'is-closed' : ''}`}>
+        <div
+            onClick={(e) => e.stopPropagation()}
+            className={`o-bag-modal ${isClosed ? 'is-closed' : ''}`}
+        >
             bag modal
         </div>
     );

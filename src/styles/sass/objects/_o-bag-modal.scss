@@ -4,6 +4,12 @@
     right: 0;
     z-index: var(--modal-index);
     background-color: black;
-    height: 200px;
-    width: 200px;
+    height: 90%;
+    width: 40%;
+
+    @media screen and (max-width: 768px) {
+        width: 60%;
+
+    }
+
 }

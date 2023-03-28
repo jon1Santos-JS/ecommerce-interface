@@ -1,15 +1,15 @@
-import BagModal from '@/components/BagModal';
 import Product from '@/components/Product';
 import { NextPage } from 'next';
-import { useState } from 'react';
-import { DataType, requestMealList } from '../lib/requestMealList';
+import { DataType, Meal, requestMealList } from '../lib/requestMealList';
 
 interface HomeProps {
-    mealList: DataType;
+    mealList: Meal[] | null;
 }
 
 export async function getStaticProps() {
-    const mealList = await requestMealList();
+    const mealList: DataType = await requestMealList();
+
+    if (mealList instanceof Error) return { props: { mealList: null } };
 
     return {
         props: { mealList },
@@ -17,34 +17,24 @@ export async function getStaticProps() {
 }
 
 const Home: NextPage<HomeProps> = ({ mealList }: HomeProps) => {
-    const [isProductModalClosed, setOnCloseProductModal] = useState(true);
-    const [isBagModalClosed, setOnCloseBagModal] = useState(true);
-
     return (
-        <div
-            className="o-home-page"
-            onClick={() => {
-                !isProductModalClosed && setOnCloseProductModal(true);
-                !isBagModalClosed && setOnCloseBagModal(true);
-            }}
-        >
+        <div className="o-home-page">
             <main>
                 <section className="o-product-list">
                     {renderProductList()}
                 </section>
-                <BagModal isClosed={isBagModalClosed} />
             </main>
             <footer></footer>
         </div>
     );
 
     function renderProductList() {
-        if (mealList && typeof mealList !== 'string') {
+        if (mealList) {
             return mealList.map((meal) => (
                 <Product key={meal.idMeal} meal={meal} />
             ));
         }
-        return null;
+        return 'Meal list request error';
     }
 };
 

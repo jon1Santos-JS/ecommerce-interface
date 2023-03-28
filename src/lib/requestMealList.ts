@@ -1,4 +1,4 @@
-export type DataType = Meal[] | null | string;
+export type DataType = Meal[] | Error;
 
 export interface Meal {
     strMeal: string;
@@ -7,7 +7,7 @@ export interface Meal {
 }
 
 export async function requestMealList() {
-    let data: DataType = null;
+    let data;
     try {
         const dataResponse = await fetch(
             process.env.PRODUCT_LIST_LINK as string,
@@ -16,7 +16,7 @@ export async function requestMealList() {
         const jsonData = await dataResponse.json();
         data = jsonData.meals;
     } catch {
-        data = 'failed to fetch data';
+        data = new Error('Failed to request meal list');
     }
 
     return data;
