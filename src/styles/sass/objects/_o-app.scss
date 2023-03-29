@@ -1,4 +1,7 @@
 .o-app{
+
+    height: 100%;
+
     & .close-modals{
         position: fixed;
         z-index: var(--modal-index);

@@ -1,15 +1,30 @@
 .o-product-page{
-    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-top: calc(var(--app-base-measure) * 6);
+    height: calc(var(--app-base-measure) * 90);
+
 
     & .content{
-        height: 300px;
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--app-base-measure) * 4);
 
         & .image{
-            height: 200px;
+            position: relative;
+            height: calc(var(--app-base-measure) * 30);
+            width: calc(var(--app-base-measure) * 30);
+        }
+
+        & .name{
+            margin: 0 auto;
         }
 
         & .info{
-            height: 50px;
+            height: calc(var(--app-base-measure) * 30);
+            width: calc(var(--app-base-measure) * 30);
         }
     }
 }

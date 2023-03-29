@@ -1,3 +1,4 @@
+import toTrimString from '@/hook/toTrimString';
 import { Meal } from '@/lib/requestMealList';
 import Image, { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
@@ -26,10 +27,10 @@ export default function Product({ meal }: ProductProps) {
 
     return (
         <Link className="o-product" href={`products/${meal.idMeal}`}>
-            <div className="content">
-                <div className="product-image">{productImage}</div>
-                <h2>{meal.strMeal}</h2>
-            </div>
+            <label className="content">
+                <div className="image">{productImage}</div>
+                <h4 className="name">{toTrimString(meal.strMeal, 2)}</h4>
+            </label>
         </Link>
     );
 
