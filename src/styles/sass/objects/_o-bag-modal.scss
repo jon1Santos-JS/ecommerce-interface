@@ -3,9 +3,14 @@
     bottom: 0;
     right: 0;
     z-index: var(--modal-index);
-    background-color: black;
+    background-color: rgb(181, 181, 181);
     height: 90%;
     width: 40%;
+
+    & .body{
+        height: 100%;
+        width: 100%;
+    }
 
     @media screen and (max-width: 768px) {
         width: 60%;

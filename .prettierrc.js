@@ -2,5 +2,5 @@ module.exports = {
     semi: true,
     trailingComma: 'all',
     singleQuote: true,
-    tabwidth: 2
+    tabwidth: 2,
 }
