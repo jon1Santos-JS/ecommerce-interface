@@ -6,14 +6,41 @@
     background-color: rgb(181, 181, 181);
     height: 90%;
     width: 40%;
+    overflow-y: scroll;
 
     & .body{
+        font-size: calc(var(--app-base-font-size) * 0.9);
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        gap: calc(var(--app-base-measure) * 4);
+        padding: calc(var(--app-base-measure) * 4) calc(var(--app-base-measure) * 4);
         height: 100%;
         width: 100%;
+
+        & .product{
+            display: flex;
+            justify-content: space-around;
+            place-items: center;
+
+            & .name{
+                width: 10%;
+            }
+
+            & .image{
+                position: relative;;
+                width: calc(var(--app-base-measure) * 5);
+                height: calc(var(--app-base-measure) * 5);
+            }
+
+            & .amount{
+                text-align: center;
+            }
+        }
     }
 
     @media screen and (max-width: 768px) {
-        width: 60%;
+        width: 100%;
 
     }
 

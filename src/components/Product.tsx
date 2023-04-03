@@ -1,40 +1,26 @@
 import toTrimString from '@/hook/toTrimString';
 import { Meal } from '@/lib/requestMealList';
-import Image, { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
+import ProductImage from './ProductImage';
 
 interface ProductProps {
-    meal: Meal;
+    meal: Meal | null;
 }
 
 export default function Product({ meal }: ProductProps) {
-    const priority = meal.idMeal === '52855' ? true : undefined;
-    const productImage = (
-        <Image
-            loader={imageLoader}
-            src={meal.strMealThumb}
-            style={{ objectFit: 'cover' }}
-            fill={true}
-            alt={meal.strMeal}
-            priority={priority}
-            placeholder="blur"
-            blurDataURL={meal.strMealThumb}
-            sizes="(max-width: 768px) 100vw,
-                   (max-width: 1200px) 50vw,
-                   33vw"
-        ></Image>
-    );
+    const productImage = meal && <ProductImage meal={meal} objectFit="cover" />;
+    const productName = meal && toTrimString(meal.strMeal, 2);
 
     return (
-        <Link className="o-product" href={`products/${meal.idMeal}`}>
+        <Link className="o-product" href={`products/${meal && meal.idMeal}`}>
             <label className="content">
-                <div className="image">{productImage}</div>
-                <h4 className="name">{toTrimString(meal.strMeal, 2)}</h4>
+                <div className="image">
+                    {productImage ?? 'meal image was not found'}
+                </div>
+                <h4 className="name">
+                    {productName ?? 'meal name was not found'}
+                </h4>
             </label>
         </Link>
     );
-
-    function imageLoader({ src, width }: ImageLoaderProps) {
-        return `${src}?w=${width}`;
-    }
 }

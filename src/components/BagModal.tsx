@@ -1,13 +1,9 @@
-import { Meal } from '@/lib/requestMealList';
+import { Product } from '@/state/bagModalReducer';
+import ProductImage from './ProductImage';
 
 interface BagModalProps {
     isClosed: boolean;
     productList: Product[];
-}
-
-export interface Product {
-    meal: Meal | null;
-    amount: number;
 }
 
 export default function BagModal({ isClosed, productList }: BagModalProps) {
@@ -17,11 +13,6 @@ export default function BagModal({ isClosed, productList }: BagModalProps) {
             className={`o-bag-modal ${isClosed ? 'is-closed' : ''}`}
         >
             <div className="content">
-                <div className="head">
-                    <div className="name"></div>
-                    <div className="image"></div>
-                    <div className="amount"></div>
-                </div>
                 <div className="body">{renderBagModalContent()}</div>
             </div>
         </div>
@@ -30,11 +21,19 @@ export default function BagModal({ isClosed, productList }: BagModalProps) {
     function renderBagModalContent() {
         if (productList) {
             return productList.map((product) => {
-                if (product.meal) {
+                const { meal, amount } = product;
+                const productImage = meal && (
+                    <div className="image">
+                        <ProductImage meal={meal} objectFit="fill" />
+                    </div>
+                );
+
+                if (product.meal && meal) {
                     return (
-                        <div key={product.meal.idMeal}>
-                            <div>{product.amount}</div>
-                            {product.meal.strMeal}
+                        <div key={meal.idMeal} className="product">
+                            <div className="name">{meal.strMeal}</div>
+                            {productImage ?? 'product image was not found'}
+                            <div className="amount">{amount}</div>
                         </div>
                     );
                 }

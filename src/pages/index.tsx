@@ -4,6 +4,7 @@ import { DataType, Meal, requestMealList } from '../lib/requestMealList';
 
 interface HomeProps {
     mealList: Meal[] | null;
+    productsToTest: Meal[];
 }
 
 export async function getStaticProps() {

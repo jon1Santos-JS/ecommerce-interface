@@ -1,9 +1,8 @@
 import BagModal from '@/components/BagModal';
 import NavigationBar from '@/components/NavigationBar';
 import type { AppProps } from 'next/app';
-import { useState } from 'react';
 import '../styles/sass/index.scss';
-import { useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { bagModalReducer } from '@/state/bagModalReducer';
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -25,6 +24,16 @@ export default function App({ Component, pageProps }: AppProps) {
     ) : (
         <Component {...pageProps} />
     );
+
+    // //TEST TO HANDLE MODAL
+    // useEffect(() => {
+    //     dispatch({ type: 'clearBag', meal: null });
+    //     if (pageProps.mealList) {
+    //         for (const meal of pageProps.mealList) {
+    //             dispatch({ type: 'addProduct', meal: meal });
+    //         }
+    //     }
+    // }, [pageProps]);
 
     if (pageProps.statusCode === 404) return <Component {...pageProps} />;
 

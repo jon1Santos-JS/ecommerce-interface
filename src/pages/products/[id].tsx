@@ -1,7 +1,8 @@
+import ProductImage from '@/components/ProductImage';
 import toTrimString from '@/hook/toTrimString';
+import { requestMealInfo } from '@/lib/requestMealInfo';
 import { DataType, Meal, requestMealList } from '@/lib/requestMealList';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
-import Image, { ImageLoaderProps } from 'next/image';
 
 interface ProductPageProps {
     meal: Meal | null;
@@ -9,31 +10,14 @@ interface ProductPageProps {
     addProductToBagModal: () => void;
 }
 
-interface ParsedDataType {
-    [key: string]: string;
-}
-
 export default function ProductPage({
     meal,
     mealInfoList,
     addProductToBagModal,
 }: ProductPageProps) {
-    const priority = meal && meal.idMeal === '52855' ? true : undefined;
     const productImage = meal && (
         <div className="image">
-            <Image
-                loader={imageLoader}
-                src={meal.strMealThumb}
-                placeholder="blur"
-                blurDataURL={meal.strMealThumb}
-                style={{ objectFit: 'fill' }}
-                fill={true}
-                alt={meal.strMeal}
-                priority={priority}
-                sizes="(max-width: 768px) 100vw,
-            (max-width: 1200px) 50vw,
-            33vw"
-            ></Image>
+            <ProductImage meal={meal} objectFit="fill" />
         </div>
     );
     const productName = meal && (
@@ -55,10 +39,6 @@ export default function ProductPage({
             </label>
         </div>
     );
-
-    function imageLoader({ src, width }: ImageLoaderProps) {
-        return `${src}?w=${width}`;
-    }
 }
 
 export async function getStaticPaths() {
@@ -86,25 +66,4 @@ export async function getStaticProps({ params }: Params) {
     const mealInfoList: string[] = await requestMealInfo(meal.idMeal);
 
     return { props: { meal, mealInfoList } };
-}
-
-async function requestMealInfo(id: string): Promise<string[]> {
-    const data = await fetch((process.env.PRODUCT_INFO_LINK as string) + id);
-    const parsedData: ParsedDataType = await data.json();
-    const mealIngredients = getMealIngredients(parsedData);
-
-    return mealIngredients;
-}
-
-function getMealIngredients(parsedData: ParsedDataType): string[] {
-    const arrayFromObjectData = Array.from(Object.entries(parsedData.meals[0]));
-    const ingredientsObject = Object.fromEntries(
-        arrayFromObjectData.filter((arr) => {
-            if (arr[0].includes('strIngredient') && arr[1]) return arr;
-            return '';
-        }),
-    );
-    const ingredientsValues = Object.values(ingredientsObject);
-
-    return ingredientsValues;
 }

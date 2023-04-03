@@ -1,28 +1,53 @@
-import { Product } from '@/components/BagModal';
+import toTrimString from '@/hook/toTrimString';
 import { Meal } from '@/lib/requestMealList';
 
 interface Action {
-    type: 'addProduct';
-    meal: Meal;
+    type: 'addProduct' | 'clearBag';
+    meal: Meal | null;
 }
 
-export function bagModalReducer(state: Product[], action: Action) {
-    switch (action.type) {
-        case 'addProduct': {
-            const productFound = state.find((value) => value.meal?.strMeal === action.meal.strMeal);
+export interface Product {
+    meal: Meal | null;
+    amount: number;
+}
 
-            if (productFound) {
+export function bagModalReducer(state: Product[], { type, meal }: Action) {
+    switch (type) {
+        case 'addProduct': {
+            if (!meal) return [...state];
+
+            const wasProductFound = state.find((value) => {
+                return value.meal?.idMeal === meal?.idMeal;
+            });
+
+            if (wasProductFound) {
                 const newState = state.map((value) => {
-                    if (value.meal?.strMeal === productFound.meal?.strMeal) return { meal: value.meal, amount: value.amount + 1 };
+                    if (value.meal?.strMeal === wasProductFound.meal?.strMeal)
+                        return {
+                            meal: value.meal,
+                            amount: value.amount + 1,
+                        };
                     return value;
                 });
 
                 return newState;
             }
 
-            return [...state, { meal: action.meal, amount: 1 }];
+            return [
+                ...state,
+                {
+                    meal: {
+                        ...meal,
+                        strMeal: toTrimString(meal.strMeal, 2),
+                    },
+                    amount: 1,
+                },
+            ];
+        }
+        case 'clearBag': {
+            return [];
         }
         default:
-            return state;
+            return [...state];
     }
 }
