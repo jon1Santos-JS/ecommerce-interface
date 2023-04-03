@@ -1,4 +1,4 @@
-import { getMealIngredients } from '@/hook/getMealIngredients';
+import { getMealIngredients } from '@/hook/useGetMealIngredients';
 
 export interface ParsedDataType {
     [key: string]: string;

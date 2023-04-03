@@ -1,8 +1,9 @@
-import ProductImage from '@/components/ProductImage';
-import toTrimString from '@/hook/toTrimString';
+import PreImage from '@/components/PreImage';
+import toTrimString from '@/hook/useTrimString';
 import { requestMealInfo } from '@/lib/requestMealInfo';
 import { DataType, Meal, requestMealList } from '@/lib/requestMealList';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
+import { useRouter } from 'next/router';
 
 interface ProductPageProps {
     meal: Meal | null;
@@ -15,9 +16,19 @@ export default function ProductPage({
     mealInfoList,
     addProductToBagModal,
 }: ProductPageProps) {
+    const router = useRouter();
+
     const productImage = meal && (
         <div className="image">
-            <ProductImage meal={meal} objectFit="fill" />
+            <PreImage
+                attributes={{
+                    alt: meal.strMeal,
+                    src: meal.strMealThumb,
+                    id: meal.idMeal,
+                    blurDataUrl: meal.strMealThumb,
+                }}
+                objectFit="fill"
+            />
         </div>
     );
     const productName = meal && (
@@ -26,6 +37,7 @@ export default function ProductPage({
     const productInfo = mealInfoList && (
         <div className="info">{mealInfoList.join(', ')}</div>
     );
+    const price = <h4 className="price">{router.query.price}</h4>;
 
     return (
         <div className="o-product-page">
@@ -33,6 +45,7 @@ export default function ProductPage({
                 {productImage ?? 'meal image was not found'}
                 {productName ?? 'meal name was not found'}
                 {productInfo ?? 'meal info was not found'}
+                {price}
                 <button className="c-button" onClick={addProductToBagModal}>
                     Add
                 </button>

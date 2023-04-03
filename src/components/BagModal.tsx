@@ -1,5 +1,7 @@
 import { Product } from '@/state/bagModalReducer';
-import ProductImage from './ProductImage';
+import { useEffect, useState } from 'react';
+import PreImage from './PreImage';
+import closeIcon from '../../public/images/closeIcon.svg';
 
 interface BagModalProps {
     isClosed: boolean;
@@ -7,13 +9,29 @@ interface BagModalProps {
 }
 
 export default function BagModal({ isClosed, productList }: BagModalProps) {
+    const [modalState, setModalState] = useState(isClosed);
+    const closeModalLogic = `o-bag-modal ${modalState ? 'is-closed' : ''}`;
+
+    useEffect(() => setModalState(isClosed), [isClosed]);
+
     return (
-        <div
-            onClick={(e) => e.stopPropagation()}
-            className={`o-bag-modal ${isClosed ? 'is-closed' : ''}`}
-        >
+        <div onClick={(e) => e.stopPropagation()} className={closeModalLogic}>
             <div className="content">
-                <div className="body">{renderBagModalContent()}</div>
+                <div
+                    className="close-icon c-button"
+                    onClick={() => setModalState(true)}
+                >
+                    <PreImage
+                        attributes={{
+                            alt: 'closeIcon',
+                            src: closeIcon,
+                        }}
+                        objectFit="fill"
+                    />
+                </div>
+                <div className="list">
+                    <div className="body">{renderBagModalContent()}</div>
+                </div>
             </div>
         </div>
     );
@@ -24,7 +42,15 @@ export default function BagModal({ isClosed, productList }: BagModalProps) {
                 const { meal, amount } = product;
                 const productImage = meal && (
                     <div className="image">
-                        <ProductImage meal={meal} objectFit="fill" />
+                        <PreImage
+                            attributes={{
+                                alt: meal.strMeal,
+                                src: meal.strMealThumb,
+                                id: meal.idMeal,
+                                blurDataUrl: meal.strMealThumb,
+                            }}
+                            objectFit="fill"
+                        />
                     </div>
                 );
 

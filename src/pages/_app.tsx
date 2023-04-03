@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
     );
 
-    // //TEST TO HANDLE MODAL
+    //TEST TO HANDLE MODAL
     // useEffect(() => {
     //     dispatch({ type: 'clearBag', meal: null });
     //     if (pageProps.mealList) {

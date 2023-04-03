@@ -1,4 +1,4 @@
-import toTrimString from '@/hook/toTrimString';
+import toTrimString from '@/hook/useTrimString';
 import { Meal } from '@/lib/requestMealList';
 
 interface Action {
