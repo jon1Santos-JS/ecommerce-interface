@@ -1,23 +1,51 @@
-import Product from '@/components/Product';
 import { NextPage } from 'next';
-import { DataType, Meal, requestMealList } from '../lib/requestMealList';
+import currency from '@/lib/currency';
+import { randomPrice } from '@/lib/random';
+import { DataType, Meal, requestMealList } from '@/lib/requestMealList';
+import Product from '@/components/Product';
+import { useEffect, useState } from 'react';
 
 interface HomeProps {
-    mealList: Meal[] | null;
-    productsToTest: Meal[];
+    productList: ProductType[] | null;
+}
+
+export type ResponseData = { [id: string]: string };
+
+export interface ProductType extends Meal {
+    price: string;
+}
+
+export async function requestProducts() {
+    const data: DataType = await requestMealList();
+
+    if (data instanceof Error) return null;
+
+    const productListWithPrice = data.map((value) => {
+        const price = currency(randomPrice(30), 'USD');
+        return { ...value, price: price };
+    });
+
+    return productListWithPrice;
 }
 
 export async function getStaticProps() {
-    const mealList: DataType = await requestMealList();
+    const productList = await requestProducts();
 
-    if (mealList instanceof Error) return { props: { mealList: null } };
+    if (!productList) return { props: { productList: null } };
 
     return {
-        props: { mealList },
+        props: { productList },
     };
 }
 
-const Home: NextPage<HomeProps> = ({ mealList }: HomeProps) => {
+const Home: NextPage<HomeProps> = ({ productList }: HomeProps) => {
+    // const [list, setList] = useState();
+
+    useEffect(() => {
+        if (productList)
+            localStorage.setItem('productList', JSON.stringify(productList));
+    }, []);
+
     return (
         <div className="o-home-page">
             <main>
@@ -30,12 +58,10 @@ const Home: NextPage<HomeProps> = ({ mealList }: HomeProps) => {
     );
 
     function renderProductList() {
-        if (mealList) {
-            return mealList.map((meal) => (
-                <Product key={meal.idMeal} meal={meal} />
-            ));
-        }
-        return 'Meal list request error';
+        if (!productList) return 'Meal list request error';
+        return productList.map((product) => {
+            return <Product key={product.idMeal} product={product} />;
+        });
     }
 };
 

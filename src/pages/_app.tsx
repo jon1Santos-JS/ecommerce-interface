@@ -2,7 +2,7 @@ import BagModal from '@/components/BagModal';
 import NavigationBar from '@/components/NavigationBar';
 import type { AppProps } from 'next/app';
 import '../styles/sass/index.scss';
-import { useEffect, useReducer, useState } from 'react';
+import { useReducer, useState } from 'react';
 import { bagModalReducer } from '@/state/bagModalReducer';
 
 export default function App({ Component, pageProps }: AppProps) {

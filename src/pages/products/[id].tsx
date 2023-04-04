@@ -4,10 +4,11 @@ import { requestMealInfo } from '@/lib/requestMealInfo';
 import { DataType, Meal, requestMealList } from '@/lib/requestMealList';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 interface ProductPageProps {
     meal: Meal | null;
-    mealInfoList: string[];
+    mealInfoList: string[] | null;
     addProductToBagModal: () => void;
 }
 
@@ -16,42 +17,50 @@ export default function ProductPage({
     mealInfoList,
     addProductToBagModal,
 }: ProductPageProps) {
-    const router = useRouter();
+    useEffect(() => {
+        const productList = localStorage.getItem('productList');
+        if (productList) console.log(JSON.parse(productList));
+    }, []);
 
-    const productImage = meal && (
-        <div className="image">
-            <PreImage
-                attributes={{
-                    alt: meal.strMeal,
-                    src: meal.strMealThumb,
-                    id: meal.idMeal,
-                    blurDataUrl: meal.strMealThumb,
-                }}
-                objectFit="fill"
-            />
-        </div>
-    );
-    const productName = meal && (
-        <h4 className="name">{toTrimString(meal.strMeal, 3)}</h4>
-    );
-    const productInfo = mealInfoList && (
-        <div className="info">{mealInfoList.join(', ')}</div>
-    );
-    const price = <h4 className="price">{router.query.price}</h4>;
+    return <div className="o-product-page">{renderProductPage()}</div>;
 
-    return (
-        <div className="o-product-page">
+    function renderProductPage() {
+        if (!meal) return 'product was not found';
+        if (!mealInfoList) return 'product info was not found';
+
+        const productImage = (
+            <div className="image">
+                <PreImage
+                    attributes={{
+                        alt: meal.strMeal,
+                        src: meal.strMealThumb,
+                        id: meal.idMeal,
+                        blurDataUrl: meal.strMealThumb,
+                    }}
+                    objectFit="fill"
+                />
+            </div>
+        );
+        const productName = (
+            <h4 className="name">{toTrimString(meal.strMeal, 3)}</h4>
+        );
+        const productInfo = (
+            <div className="info">{mealInfoList.join(', ')}</div>
+        );
+        // const productPrice = <h4 className="price">{price}</h4>;
+
+        return (
             <label className="content">
-                {productImage ?? 'meal image was not found'}
-                {productName ?? 'meal name was not found'}
-                {productInfo ?? 'meal info was not found'}
-                {price}
+                {productImage}
+                {productName}
+                {productInfo}
+                {/* {productPrice} */}
                 <button className="c-button" onClick={addProductToBagModal}>
                     Add
                 </button>
             </label>
-        </div>
-    );
+        );
+    }
 }
 
 export async function getStaticPaths() {
@@ -77,6 +86,8 @@ export async function getStaticProps({ params }: Params) {
     });
 
     const mealInfoList: string[] = await requestMealInfo(meal.idMeal);
+
+    if (!mealInfoList) return { props: { meal, mealInfoList: null } };
 
     return { props: { meal, mealInfoList } };
 }

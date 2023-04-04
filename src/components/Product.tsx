@@ -1,53 +1,56 @@
-import useCurrency from '@/hook/useCurrency';
-import { randomPrice } from '@/hook/useRandomPrice';
 import toTrimString from '@/hook/useTrimString';
 import { Meal } from '@/lib/requestMealList';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import PreImage from './PreImage';
 
-interface ProductProps {
-    meal: Meal | null;
+export interface ProductType extends Meal {
+    price: string;
 }
 
-export default function Product({ meal }: ProductProps) {
-    const [enCurrency] = useCurrency(randomPrice());
-    const [price, setPrice] = useState<string>();
-    const productImage = meal && (
-        <PreImage
-            attributes={{
-                alt: meal.strMeal,
-                src: meal.strMealThumb,
-                id: meal.idMeal,
-                blurDataUrl: meal.strMealThumb,
-            }}
-            objectFit="cover"
-        />
-    );
-    const productName = meal && toTrimString(meal.strMeal, 2);
+interface ProductProps {
+    product: ProductType;
+}
 
-    useEffect(() => {
-        if (price) return;
-        setPrice(enCurrency);
-    }, [enCurrency, price]);
+export default function Product({ product }: ProductProps) {
+    const productImage = (
+        <div className="image">
+            <PreImage
+                attributes={{
+                    alt: product.strMeal,
+                    src: product.strMealThumb,
+                    id: product.idMeal,
+                    blurDataUrl: product.strMealThumb,
+                }}
+                objectFit="cover"
+            />
+        </div>
+    );
+    const productName = (
+        <h4 className="name">{toTrimString(product.strMeal, 2)}</h4>
+    );
+    const price = <h4 className="price">{product.price}</h4>;
 
     return (
         <Link
             className="o-product"
             href={{
-                pathname: `products/${meal && meal.idMeal}`,
-                query: { price: price },
+                pathname: `products/${product && product.idMeal}`,
+                query: { price: product.price },
             }}
         >
-            <label className="content">
-                <div className="image">
-                    {productImage ?? 'meal image was not found'}
-                </div>
-                <h4 className="name">
-                    {productName ?? 'meal name was not found'}
-                </h4>
-                <h4 className="price">{price}</h4>
-            </label>
+            {renderProduct()}
         </Link>
     );
+
+    function renderProduct() {
+        if (!product) return 'product was not found';
+
+        return (
+            <label className="content">
+                {productImage}
+                {productName}
+                {price}
+            </label>
+        );
+    }
 }
