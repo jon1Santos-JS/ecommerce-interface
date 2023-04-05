@@ -1,11 +1,11 @@
-import { Product } from '@/state/reducers/bagModalReducer';
 import { useEffect, useState } from 'react';
 import PreImage from './PreImage';
 import closeIcon from '../../public/images/closeIcon.svg';
+import { BagModalProduct } from '@/state/reducers/bagModalReducer';
 
 interface BagModalProps {
     isClosed: boolean;
-    productList: Product[];
+    productList: BagModalProduct[];
 }
 
 export default function BagModal({ isClosed, productList }: BagModalProps) {
@@ -38,26 +38,26 @@ export default function BagModal({ isClosed, productList }: BagModalProps) {
 
     function renderBagModalContent() {
         if (productList) {
-            return productList.map((product) => {
-                const { meal, amount } = product;
-                const productImage = meal && (
+            return productList.map((value) => {
+                const { product, amount } = value;
+                const productImage = product && (
                     <div className="image">
                         <PreImage
                             attributes={{
-                                alt: meal.strMeal,
-                                src: meal.strMealThumb,
-                                id: meal.idMeal,
-                                blurDataUrl: meal.strMealThumb,
+                                alt: product.strMeal,
+                                src: product.strMealThumb,
+                                id: product.idMeal,
+                                blurDataUrl: product.strMealThumb,
                             }}
                             objectFit="fill"
                         />
                     </div>
                 );
 
-                if (product.meal && meal) {
+                if (product) {
                     return (
-                        <div key={meal.idMeal} className="product">
-                            <div className="name">{meal.strMeal}</div>
+                        <div key={product.idMeal} className="product">
+                            <div className="name">{product.strMeal}</div>
                             {productImage ?? 'product image was not found'}
                             <div className="amount">{amount}</div>
                         </div>
