@@ -1,30 +1,32 @@
 import toTrimString from '@/hook/useTrimString';
-import { Meal } from '@/lib/requestMealList';
+import { Action } from '../action/bagModal';
+import { ProductType } from '../product';
 
-interface Action {
-    type: 'addProduct' | 'clearBag';
-    meal: Meal | null;
-}
-
-export interface Product {
-    meal: Meal | null;
+export interface BagModalProduct {
+    product: ProductType | null;
     amount: number;
 }
 
-export function bagModalReducer(state: Product[], { type, meal }: Action) {
+export function bagModalReducer(
+    state: BagModalProduct[],
+    { type, product }: Action,
+) {
     switch (type) {
         case 'addProduct': {
-            if (!meal) return [...state];
+            if (!product) return [...state];
 
             const wasProductFound = state.find((value) => {
-                return value.meal?.idMeal === meal?.idMeal;
+                return value.product?.idMeal === product?.idMeal;
             });
 
             if (wasProductFound) {
                 const newState = state.map((value) => {
-                    if (value.meal?.strMeal === wasProductFound.meal?.strMeal)
+                    if (
+                        value.product?.strMeal ===
+                        wasProductFound.product?.strMeal
+                    )
                         return {
-                            meal: value.meal,
+                            product: value.product,
                             amount: value.amount + 1,
                         };
                     return value;
@@ -36,9 +38,9 @@ export function bagModalReducer(state: Product[], { type, meal }: Action) {
             return [
                 ...state,
                 {
-                    meal: {
-                        ...meal,
-                        strMeal: toTrimString(meal.strMeal, 2),
+                    product: {
+                        ...product,
+                        strMeal: toTrimString(product.strMeal, 2),
                     },
                     amount: 1,
                 },

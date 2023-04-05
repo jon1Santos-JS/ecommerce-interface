@@ -1,10 +1,6 @@
-export type DataType = Meal[] | Error;
+import { Meal } from '@/state/product';
 
-export interface Meal {
-    strMeal: string;
-    idMeal: string;
-    strMealThumb: string;
-}
+export type DataType = Meal[] | Error;
 
 export async function requestMealList() {
     let data;

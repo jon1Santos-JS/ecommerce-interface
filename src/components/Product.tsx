@@ -1,11 +1,7 @@
 import toTrimString from '@/hook/useTrimString';
-import { Meal } from '@/lib/requestMealList';
+import { ProductType } from '@/state/product';
 import Link from 'next/link';
 import PreImage from './PreImage';
-
-export interface ProductType extends Meal {
-    price: string;
-}
 
 interface ProductProps {
     product: ProductType;
@@ -35,7 +31,6 @@ export default function Product({ product }: ProductProps) {
             className="o-product"
             href={{
                 pathname: `products/${product && product.idMeal}`,
-                query: { price: product.price },
             }}
         >
             {renderProduct()}

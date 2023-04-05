@@ -1,18 +1,13 @@
 import { NextPage } from 'next';
 import currency from '@/lib/currency';
 import { randomPrice } from '@/lib/random';
-import { DataType, Meal, requestMealList } from '@/lib/requestMealList';
+import { DataType, requestMealList } from '@/lib/requestMealList';
 import Product from '@/components/Product';
 import { useEffect, useState } from 'react';
+import { ProductType } from '@/state/product';
 
 interface HomeProps {
     productList: ProductType[] | null;
-}
-
-export type ResponseData = { [id: string]: string };
-
-export interface ProductType extends Meal {
-    price: string;
 }
 
 export async function requestProducts() {
@@ -39,11 +34,13 @@ export async function getStaticProps() {
 }
 
 const Home: NextPage<HomeProps> = ({ productList }: HomeProps) => {
-    // const [list, setList] = useState();
+    const [productListFromStorage, setproductListFromStorage] = useState<
+        ProductType[] | null
+    >();
 
     useEffect(() => {
-        if (productList)
-            localStorage.setItem('productList', JSON.stringify(productList));
+        setProductListInStorage();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -58,10 +55,27 @@ const Home: NextPage<HomeProps> = ({ productList }: HomeProps) => {
     );
 
     function renderProductList() {
-        if (!productList) return 'Meal list request error';
+        if (productListFromStorage)
+            return productListFromStorage.map((product) => {
+                return <Product key={product.idMeal} product={product} />;
+            });
+
+        if (!productList) return 'product list request error';
+
         return productList.map((product) => {
             return <Product key={product.idMeal} product={product} />;
         });
+    }
+
+    function setProductListInStorage() {
+        const stringifiedProductList = localStorage.getItem('productList');
+
+        if (stringifiedProductList) {
+            setproductListFromStorage(JSON.parse(stringifiedProductList));
+            return;
+        }
+
+        localStorage.setItem('productList', JSON.stringify(productList));
     }
 };
 

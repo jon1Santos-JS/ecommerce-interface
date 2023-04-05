@@ -1,7 +1,9 @@
 import PreImage from '@/components/PreImage';
+import { useStorage } from '@/hook/useStorage';
 import toTrimString from '@/hook/useTrimString';
 import { requestMealInfo } from '@/lib/requestMealInfo';
-import { DataType, Meal, requestMealList } from '@/lib/requestMealList';
+import { DataType, requestMealList } from '@/lib/requestMealList';
+import { Meal } from '@/state/product';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -17,16 +19,19 @@ export default function ProductPage({
     mealInfoList,
     addProductToBagModal,
 }: ProductPageProps) {
+    const [price, setPrice] = useState<string>();
+    const [getProductPrice] = useStorage();
+    const router = useRouter();
+
     useEffect(() => {
-        const productList = localStorage.getItem('productList');
-        if (productList) console.log(JSON.parse(productList));
+        getStorageItem();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return <div className="o-product-page">{renderProductPage()}</div>;
 
     function renderProductPage() {
         if (!meal) return 'product was not found';
-        if (!mealInfoList) return 'product info was not found';
 
         const productImage = (
             <div className="image">
@@ -44,22 +49,32 @@ export default function ProductPage({
         const productName = (
             <h4 className="name">{toTrimString(meal.strMeal, 3)}</h4>
         );
-        const productInfo = (
+        const productInfo = mealInfoList && (
             <div className="info">{mealInfoList.join(', ')}</div>
         );
-        // const productPrice = <h4 className="price">{price}</h4>;
+        const productPrice = price && <h4 className="price">{price}</h4>;
 
         return (
             <label className="content">
                 {productImage}
                 {productName}
-                {productInfo}
-                {/* {productPrice} */}
+                {productInfo ?? 'product info was not found'}
+                {productPrice}
                 <button className="c-button" onClick={addProductToBagModal}>
                     Add
                 </button>
             </label>
         );
+    }
+
+    function getStorageItem() {
+        const storageData = getProductPrice(meal);
+        if (!storageData) {
+            setPrice('product price was not found');
+            router.push('/');
+            return;
+        }
+        setPrice(storageData);
     }
 }
 

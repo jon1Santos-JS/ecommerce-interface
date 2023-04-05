@@ -1,4 +1,4 @@
-import { Product } from '@/state/bagModalReducer';
+import { Product } from '@/state/reducers/bagModalReducer';
 import { useEffect, useState } from 'react';
 import PreImage from './PreImage';
 import closeIcon from '../../public/images/closeIcon.svg';
