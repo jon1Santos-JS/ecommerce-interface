@@ -2,18 +2,15 @@ import BagModal from '@/components/BagModal';
 import NavigationBar from '@/components/NavigationBar';
 import type { AppProps } from 'next/app';
 import '../styles/sass/index.scss';
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { bagModalReducer } from '@/state/reducers/bagModalReducer';
-import { useStorage } from '@/hook/useStorage';
 import { Meal } from '@/state/product';
 import { BagModalActionTypes } from '@/state/action-types/bagModal';
+import { getProductPrice } from '@/hook/useStorage';
 
 export default function App({ Component, pageProps }: AppProps) {
     const [isBagModalClosed, setOnCloseBagModal] = useState(true);
-    const [bagModalState, dispatch] = useReducer(bagModalReducer, [
-        { product: null, amount: 0 },
-    ]);
-    const [getProductPrice] = useStorage();
+    const [bagModalState, dispatch] = useReducer(bagModalReducer, []);
 
     const addClasseModalLogic = isBagModalClosed ? 'is-closed' : '';
 
@@ -46,6 +43,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
     );
 
+    useEffect(() => dispatch({ type: BagModalActionTypes.HYDRATE }), []);
+
     if (pageProps.statusCode === 404) return <Component {...pageProps} />;
 
     return (
@@ -56,7 +55,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <NavigationBar onOpenModal={onOpenModal} />
             <div className={`close-modals ${addClasseModalLogic}`}></div>
             {isProductPage}
-            <BagModal isClosed={isBagModalClosed} productList={bagModalState} />
+            <BagModal isClosed={isBagModalClosed} state={bagModalState} />
         </div>
     );
 

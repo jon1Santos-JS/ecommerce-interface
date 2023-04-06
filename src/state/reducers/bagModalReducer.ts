@@ -1,4 +1,5 @@
 import toTrimString from '@/hook/useTrimString';
+import { BagModalActionTypes } from '../action-types/bagModal';
 import { Action } from '../action/bagModal';
 import { ProductType } from '../product';
 
@@ -7,16 +8,13 @@ export interface BagModalProduct {
     amount: number;
 }
 
-export function bagModalReducer(
-    state: BagModalProduct[],
-    { type, product }: Action,
-) {
-    switch (type) {
-        case 'addProduct': {
-            if (!product) return [...state];
+export function bagModalReducer(state: BagModalProduct[], action: Action) {
+    switch (action.type) {
+        case BagModalActionTypes.ADD_PRODUCT: {
+            if (!action.product) return [...state];
 
             const wasProductFound = state.find((value) => {
-                return value.product?.idMeal === product?.idMeal;
+                return value.product?.idMeal === action.product?.idMeal;
             });
 
             if (wasProductFound) {
@@ -39,15 +37,26 @@ export function bagModalReducer(
                 ...state,
                 {
                     product: {
-                        ...product,
-                        strMeal: toTrimString(product.strMeal, 2),
+                        ...action.product,
+                        strMeal: toTrimString(action.product.strMeal, 2),
                     },
                     amount: 1,
                 },
             ];
         }
-        case 'clearBag': {
-            return [];
+        // case BagModalActionTypes.CLEAR_BAG: {
+        //     return [];
+        // }
+        case BagModalActionTypes.HYDRATE: {
+            const stringifiedState = localStorage.getItem('bagmodalState');
+
+            if (!stringifiedState) {
+                return [...state];
+            }
+
+            const parsedState: BagModalProduct[] = JSON.parse(stringifiedState);
+
+            return parsedState;
         }
         default:
             return [...state];

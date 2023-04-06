@@ -1,25 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PreImage from './PreImage';
 import closeIcon from '../../public/images/closeIcon.svg';
 import { BagModalProduct } from '@/state/reducers/bagModalReducer';
+import { ProductType } from '@/state/product';
 
 interface BagModalProps {
     isClosed: boolean;
-    productList: BagModalProduct[];
+    state: BagModalProduct[];
 }
 
-export default function BagModal({ isClosed, productList }: BagModalProps) {
-    const [modalState, setModalState] = useState(isClosed);
-    const closeModalLogic = `o-bag-modal ${modalState ? 'is-closed' : ''}`;
+export function saveState(state: BagModalProduct[]) {
+    const stringifiedState = JSON.stringify(state);
+    localStorage.setItem('bagmodalState', stringifiedState);
+}
 
-    useEffect(() => setModalState(isClosed), [isClosed]);
+export default function BagModal({ isClosed, state }: BagModalProps) {
+    const [isModalClosed, onCloseModal] = useState(isClosed);
+    const closeModalLogic = `o-bag-modal ${isModalClosed ? 'is-closed' : ''}`;
+    const initialState = useRef(state);
+
+    useEffect(() => {
+        if (state !== initialState.current) saveState(state);
+    }, [state]);
+
+    useEffect(() => onCloseModal(isClosed), [isClosed]);
 
     return (
         <div onClick={(e) => e.stopPropagation()} className={closeModalLogic}>
             <div className="content">
                 <div
                     className="close-icon c-button"
-                    onClick={() => setModalState(true)}
+                    onClick={() => onCloseModal(true)}
                 >
                     <PreImage
                         attributes={{
@@ -37,22 +48,10 @@ export default function BagModal({ isClosed, productList }: BagModalProps) {
     );
 
     function renderBagModalContent() {
-        if (productList) {
-            return productList.map((value) => {
+        if (state) {
+            return state.map((value) => {
                 const { product, amount } = value;
-                const productImage = product && (
-                    <div className="image">
-                        <PreImage
-                            attributes={{
-                                alt: product.strMeal,
-                                src: product.strMealThumb,
-                                id: product.idMeal,
-                                blurDataUrl: product.strMealThumb,
-                            }}
-                            objectFit="fill"
-                        />
-                    </div>
-                );
+                const productImage = returnImage(product);
 
                 if (product) {
                     return (
@@ -67,5 +66,23 @@ export default function BagModal({ isClosed, productList }: BagModalProps) {
             });
         }
         return null;
+    }
+
+    function returnImage(product: ProductType | null) {
+        if (!product) return;
+
+        return (
+            <div className="image">
+                <PreImage
+                    attributes={{
+                        alt: product.strMeal,
+                        src: product.strMealThumb,
+                        id: product.idMeal,
+                        blurDataUrl: product.strMealThumb,
+                    }}
+                    objectFit="fill"
+                />
+            </div>
+        );
     }
 }

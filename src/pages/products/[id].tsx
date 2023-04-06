@@ -1,5 +1,5 @@
 import PreImage from '@/components/PreImage';
-import { useStorage } from '@/hook/useStorage';
+import { getProductPrice } from '@/hook/useStorage';
 import toTrimString from '@/hook/useTrimString';
 import { requestMealInfo } from '@/lib/requestMealInfo';
 import { DataType, requestMealList } from '@/lib/requestMealList';
@@ -20,7 +20,6 @@ export default function ProductPage({
     addProductToBagModal,
 }: ProductPageProps) {
     const [price, setPrice] = useState<string>();
-    const [getProductPrice] = useStorage();
     const router = useRouter();
 
     useEffect(() => {
