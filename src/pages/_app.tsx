@@ -17,17 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
     const addProductToBagModal = () => {
         if (!pageProps.meal) return;
 
-        const meal: Meal = pageProps.meal;
-
-        const price =
-            getProductPrice(pageProps.meal) ?? 'product price was not found';
-
-        const product = {
-            strMeal: meal.strMeal,
-            idMeal: meal.idMeal,
-            strMealThumb: meal.strMealThumb,
-            price: price,
-        };
+        const product = getProduct(pageProps.meal);
 
         const action = {
             type: BagModalActionTypes.ADD_PRODUCT,
@@ -61,5 +51,19 @@ export default function App({ Component, pageProps }: AppProps) {
 
     function onOpenModal() {
         setOnCloseBagModal(false);
+    }
+
+    function getProduct(meal: Meal) {
+        const price =
+            getProductPrice(pageProps.meal) ?? 'product price was not found';
+
+        const product = {
+            strMeal: meal.strMeal,
+            idMeal: meal.idMeal,
+            strMealThumb: meal.strMealThumb,
+            price: price,
+        };
+
+        return product;
     }
 }
