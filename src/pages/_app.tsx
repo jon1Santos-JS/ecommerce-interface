@@ -5,12 +5,15 @@ import '../styles/sass/index.scss';
 import { useEffect, useReducer, useState } from 'react';
 import { bagModalReducer } from '@/state/reducers/bagModalReducer';
 import { Meal } from '@/state/product';
-import { BagModalActionTypes } from '@/state/action-types/bagModal';
 import { getProductPrice } from '@/hook/useStorage';
+import { BagModalActionTypes } from '@/state/action-types/bagModal';
 
 export default function App({ Component, pageProps }: AppProps) {
     const [isBagModalClosed, setOnCloseBagModal] = useState(true);
-    const [bagModalState, dispatch] = useReducer(bagModalReducer, []);
+    const [bagModalState, dispatch] = useReducer(bagModalReducer, {
+        products: [],
+        total: 0,
+    });
 
     const closeModal = isBagModalClosed ? 'is-closed' : '';
 
@@ -23,7 +26,6 @@ export default function App({ Component, pageProps }: AppProps) {
             type: BagModalActionTypes.ADD_PRODUCT,
             product: product,
         };
-
         dispatch(action);
     };
 
@@ -58,8 +60,9 @@ export default function App({ Component, pageProps }: AppProps) {
     }
 
     function getProduct(meal: Meal) {
-        const price =
-            getProductPrice(pageProps.meal) ?? 'product price was not found';
+        const price = getProductPrice(pageProps.meal);
+
+        if (!price) return null;
 
         const product = {
             strMeal: meal.strMeal,

@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import currency from '@/lib/currency';
 import { randomPrice } from '@/lib/random';
 import { DataType, requestMealList } from '@/lib/requestMealList';
 import Product from '@/components/Product';
@@ -16,7 +15,7 @@ export async function requestProducts() {
     if (data instanceof Error) return null;
 
     const productListWithPrice = data.map((value) => {
-        const price = currency(randomPrice(30), 'USD');
+        const price = randomPrice(30);
         return { ...value, price: price };
     });
 

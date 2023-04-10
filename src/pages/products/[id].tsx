@@ -1,6 +1,7 @@
 import PreImage from '@/components/PreImage';
 import { getProductPrice } from '@/hook/useStorage';
 import toTrimString from '@/hook/useTrimString';
+import currency from '@/lib/currency';
 import { requestMealInfo } from '@/lib/requestMealInfo';
 import { DataType, requestMealList } from '@/lib/requestMealList';
 import { Meal } from '@/state/product';
@@ -19,7 +20,7 @@ export default function ProductPage({
     mealInfoList,
     addProductToBagModal,
 }: ProductPageProps) {
-    const [price, setPrice] = useState<string>();
+    const [price, setPrice] = useState<number>(0);
     const router = useRouter();
 
     useEffect(() => {
@@ -49,16 +50,20 @@ export default function ProductPage({
             <h4 className="name">{toTrimString(meal.strMeal, 3)}</h4>
         );
         const productInfo = mealInfoList && (
-            <div className="info">{mealInfoList.join(', ')}</div>
+            <div className="info">
+                <div className="title">Ingredients</div>
+                <div className="ingredients">{mealInfoList.join(', ')}</div>
+                <h4 className="price">
+                    {currency(price, 'USD') ?? 'product price was not found'}
+                </h4>
+            </div>
         );
-        const productPrice = price && <h4 className="price">{price}</h4>;
 
         return (
             <label className="content">
                 {productImage}
                 {productName}
                 {productInfo ?? 'product info was not found'}
-                {productPrice}
                 <button className="c-button" onClick={addProductToBagModal}>
                     Add
                 </button>
@@ -69,7 +74,6 @@ export default function ProductPage({
     function getStorageItem() {
         const storageData = getProductPrice(meal);
         if (!storageData) {
-            setPrice('product price was not found');
             router.push('/');
             return;
         }

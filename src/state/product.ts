@@ -5,5 +5,5 @@ export interface Meal {
 }
 
 export interface ProductType extends Meal {
-    price: string;
+    price: number;
 }

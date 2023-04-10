@@ -1,4 +1,5 @@
 import toTrimString from '@/hook/useTrimString';
+import currency from '@/lib/currency';
 import { ProductType } from '@/state/product';
 import Link from 'next/link';
 import PreImage from './PreImage';
@@ -24,7 +25,11 @@ export default function Product({ product }: ProductProps) {
     const productName = (
         <h4 className="name">{toTrimString(product.strMeal, 2)}</h4>
     );
-    const price = <h4 className="price">{product.price}</h4>;
+    const price = (
+        <h4 className="price">
+            {product.price && currency(product.price, 'USD')}
+        </h4>
+    );
 
     return (
         <Link
