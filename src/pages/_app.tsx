@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
     const [isBagModalClosed, setOnCloseBagModal] = useState(true);
     const [bagModalState, dispatch] = useReducer(bagModalReducer, []);
 
-    const addClasseModalLogic = isBagModalClosed ? 'is-closed' : '';
+    const closeModal = isBagModalClosed ? 'is-closed' : '';
 
     const addProductToBagModal = () => {
         if (!pageProps.meal) return;
@@ -43,9 +43,13 @@ export default function App({ Component, pageProps }: AppProps) {
             onClick={() => !isBagModalClosed && setOnCloseBagModal(true)}
         >
             <NavigationBar onOpenModal={onOpenModal} />
-            <div className={`close-modals ${addClasseModalLogic}`}></div>
+            <div className={`close-modals ${closeModal}`}></div>
             {isProductPage}
-            <BagModal isClosed={isBagModalClosed} state={bagModalState} />
+            <BagModal
+                isClosed={isBagModalClosed}
+                state={bagModalState}
+                dispatch={dispatch}
+            />
         </div>
     );
 

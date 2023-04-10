@@ -44,9 +44,9 @@ export function bagModalReducer(state: BagModalProduct[], action: Action) {
                 },
             ];
         }
-        // case BagModalActionTypes.CLEAR_BAG: {
-        //     return [];
-        // }
+        case BagModalActionTypes.CLEAR_BAG: {
+            return [];
+        }
         case BagModalActionTypes.HYDRATE: {
             const stringifiedState = localStorage.getItem('bagmodalState');
 

@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { Dispatch, useEffect, useRef, useState } from 'react';
 import PreImage from './PreImage';
 import closeIcon from '../../public/images/closeIcon.svg';
 import { BagModalProduct } from '@/state/reducers/bagModalReducer';
 import { ProductType } from '@/state/product';
+import { Action } from '@/state/action/bagModal';
+import { BagModalActionTypes } from '@/state/action-types/bagModal';
 
 interface BagModalProps {
     isClosed: boolean;
     state: BagModalProduct[];
+    dispatch: Dispatch<Action>;
 }
 
 export function saveState(state: BagModalProduct[]) {
@@ -14,7 +17,7 @@ export function saveState(state: BagModalProduct[]) {
     localStorage.setItem('bagmodalState', stringifiedState);
 }
 
-export default function BagModal({ isClosed, state }: BagModalProps) {
+export default function BagModal({ isClosed, state, dispatch }: BagModalProps) {
     const [isModalClosed, onCloseModal] = useState(isClosed);
     const closeModalLogic = `o-bag-modal ${isModalClosed ? 'is-closed' : ''}`;
     const initialState = useRef(state);
@@ -39,6 +42,15 @@ export default function BagModal({ isClosed, state }: BagModalProps) {
                         }}
                         objectFit="fill"
                     />
+                    <button
+                        className="clear-bag c-button"
+                        onClick={(e) => {
+                            dispatch({ type: BagModalActionTypes.CLEAR_BAG });
+                            e.stopPropagation();
+                        }}
+                    >
+                        clear bag
+                    </button>
                 </div>
                 <div className="list">
                     <div className="body">{renderBagModalContent()}</div>
@@ -51,14 +63,14 @@ export default function BagModal({ isClosed, state }: BagModalProps) {
         if (state) {
             return state.map((value) => {
                 const { product, amount } = value;
-                const productImage = returnImage(product);
+                const productImage = returnImage(product, amount);
 
                 if (product) {
                     return (
                         <div key={product.idMeal} className="product">
-                            <div className="name">{product.strMeal}</div>
                             {productImage ?? 'product image was not found'}
-                            <div className="amount">{amount}</div>
+                            <div className="name">{product.strMeal}</div>
+                            <div className="price">{product.price}</div>
                         </div>
                     );
                 }
@@ -68,7 +80,7 @@ export default function BagModal({ isClosed, state }: BagModalProps) {
         return null;
     }
 
-    function returnImage(product: ProductType | null) {
+    function returnImage(product: ProductType | null, amount: number) {
         if (!product) return;
 
         return (
@@ -82,6 +94,7 @@ export default function BagModal({ isClosed, state }: BagModalProps) {
                     }}
                     objectFit="fill"
                 />
+                <div className="amount">{amount}</div>
             </div>
         );
     }

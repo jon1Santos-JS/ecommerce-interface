@@ -10,8 +10,8 @@ export interface Hydrate_State {
     type: BagModalActionTypes.HYDRATE;
 }
 
-// export interface Clear_State {
-//     type: BagModalActionTypes.CLEAR_BAG;
-// }
+export interface Clear_State {
+    type: BagModalActionTypes.CLEAR_BAG;
+}
 
-export type Action = Add_Product | Hydrate_State;
+export type Action = Add_Product | Hydrate_State | Clear_State;

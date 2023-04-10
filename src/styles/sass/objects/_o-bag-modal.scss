@@ -23,6 +23,12 @@
             }
         }
 
+        & .clear-bag{
+            position: fixed;
+            margin: 0 var(--app-base-measure);
+            right: 0;
+        }
+
         & .list{
             padding: calc(var(--app-base-measure) * 8) calc(var(--app-base-measure) * 4);
             overflow: hidden;
@@ -39,22 +45,34 @@
 
             & .product{
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-evenly;
                 place-items: center;
 
                 & .name{
-                    width: 10%;
+                    width: 40%;
                 }
 
                 & .image{
-                    position: relative;;
-                    width: calc(var(--app-base-measure) * 5);
-                    height: calc(var(--app-base-measure) * 5);
+                    position: relative;
+                    width: calc(var(--app-base-measure) * 6);
+                    height: calc(var(--app-base-measure) * 6);
+
+                    & .amount{
+                        padding: 0 calc(var(--app-base-measure) / 2);
+                        position: absolute;
+                        text-align: center;
+                        background-color: white;
+                        border-radius: 2rem;
+                        bottom: -10%;
+                        left: -10%;
+                    }
                 }
 
-                & .amount{
-                    text-align: center;
+                & .price{
+                    font-weight: bold;
                 }
+
+
             }
         }
     }
