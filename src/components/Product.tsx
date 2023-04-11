@@ -1,4 +1,4 @@
-import toTrimString from '@/hook/useTrimString';
+import { toAddDots, toTrimString } from '@/hook/useTrimString';
 import currency from '@/lib/currency';
 import { ProductType } from '@/state/product';
 import Link from 'next/link';
@@ -8,7 +8,15 @@ interface ProductProps {
     product: ProductType;
 }
 
+function toShortenName(content: string) {
+    const splittedContent = content.split(' ');
+    if (splittedContent.length <= 2) return content;
+    return toAddDots(toTrimString(content, 2));
+}
+
 export default function Product({ product }: ProductProps) {
+    const name = toShortenName(product.strMeal);
+
     const productImage = (
         <div className="image">
             <PreImage
@@ -22,9 +30,7 @@ export default function Product({ product }: ProductProps) {
             />
         </div>
     );
-    const productName = (
-        <h4 className="name">{toTrimString(product.strMeal, 2)}</h4>
-    );
+    const productName = <h4 className="name">{name}</h4>;
     const price = (
         <h4 className="price">
             {product.price && currency(product.price, 'USD')}
@@ -34,9 +40,7 @@ export default function Product({ product }: ProductProps) {
     return (
         <Link
             className="o-product"
-            href={{
-                pathname: `products/${product && product.idMeal}`,
-            }}
+            href={`products/${product && product.idMeal}`}
         >
             {renderProduct()}
         </Link>

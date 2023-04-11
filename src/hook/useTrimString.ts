@@ -1,4 +1,4 @@
-export default function toTrimString(content: string, amount: number) {
+export function toTrimString(content: string, amount: number) {
     if (!content) return '';
     const contentArray = content.split(' ');
     const trimmedContent = contentArray
@@ -9,4 +9,11 @@ export default function toTrimString(content: string, amount: number) {
         .join(' ');
 
     return trimmedContent;
+}
+
+export function toAddDots(content: string) {
+    const arrayFromString = content.split('');
+    arrayFromString.push('...');
+    const reformedString = arrayFromString.join('');
+    return reformedString;
 }

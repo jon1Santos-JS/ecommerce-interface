@@ -38,7 +38,7 @@ const Home: NextPage<HomeProps> = ({ productList }: HomeProps) => {
     >();
 
     useEffect(() => {
-        setProductListInStorage();
+        getDataFromStorage();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -66,7 +66,12 @@ const Home: NextPage<HomeProps> = ({ productList }: HomeProps) => {
         });
     }
 
-    function setProductListInStorage() {
+    function setDataToStorage() {
+        const strigifiedList = JSON.stringify(productList);
+        localStorage.setItem('productList', strigifiedList);
+    }
+
+    function getDataFromStorage() {
         const stringifiedProductList = localStorage.getItem('productList');
 
         if (stringifiedProductList) {
@@ -74,7 +79,7 @@ const Home: NextPage<HomeProps> = ({ productList }: HomeProps) => {
             return;
         }
 
-        localStorage.setItem('productList', JSON.stringify(productList));
+        setDataToStorage();
     }
 };
 

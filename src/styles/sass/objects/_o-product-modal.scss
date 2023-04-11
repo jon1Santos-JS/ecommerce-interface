@@ -1,0 +1,50 @@
+.o-product-modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    gap: calc(var(--app-base-measure) * 4);
+    z-index: var(--modal-index);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 80%;
+    background-color: black;
+    color: white;
+
+    & .image{
+        position: relative;
+        width: calc(var(--app-base-measure) * 30);
+        height: calc(var(--app-base-measure) * 30);
+    }
+
+    & .add-remove-group{
+        display: flex;
+        gap: calc(var(--app-base-measure) * 6);
+
+        & .remove-item{
+            padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
+            background-color: red;
+        }
+
+        & .amount{
+            background-color: white;
+            padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
+            color: black;
+        }
+
+        & .add-item{
+            padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
+            background-color: green;
+        }
+
+    }
+
+    & .exclude-item{
+        padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
+        background-color: red;
+    }
+
+}

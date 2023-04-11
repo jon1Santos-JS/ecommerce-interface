@@ -37,7 +37,7 @@
             height: var(--close-icon-measure);
 
             @media screen and (max-width: 768px) {
-                --close-icon-measure: calc(var(--app-base-measure) * 3)
+                --close-icon-measure: calc(var(--app-base-measure) * 2.5)
             }
         }
 
@@ -47,6 +47,7 @@
             padding: calc(var(--app-base-measure) * 8) calc(var(--app-base-measure) * 4);
 
             & .body{
+                padding: calc(var(--app-base-measure) * 8) 0;
                 font-size: calc(var(--app-base-font-size) * 0.9);
                 display: flex;
                 justify-content: space-around;
@@ -62,7 +63,7 @@
                 place-items: center;
 
                 & .name{
-                    width: 40%;
+                    width: 30%;
                 }
 
                 & .image{
