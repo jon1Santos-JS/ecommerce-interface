@@ -14,7 +14,7 @@ function toShortenName(content: string) {
     return toAddDots(toTrimString(content, 2));
 }
 
-export default function Product({ product }: ProductProps) {
+export default function ListProduct({ product }: ProductProps) {
     const name = toShortenName(product.strMeal);
 
     const productImage = (

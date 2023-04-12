@@ -1,4 +1,4 @@
-import BagModal from '@/components/BagModal';
+import BagModal from '@/components/bag-modal/BagModal';
 import NavigationBar from '@/components/NavigationBar';
 import type { AppProps } from 'next/app';
 import '../styles/sass/index.scss';
@@ -10,7 +10,7 @@ import {
 import { Meal } from '@/state/product';
 import { getProductPrice } from '@/hook/useStorage';
 import { BagModalActionTypes } from '@/state/action-types/bagModal';
-import ProductModal from '@/components/ProductModal';
+import ProductModal from '@/components/bag-modal/ProductModal';
 
 export default function App({ Component, pageProps }: AppProps) {
     const [isBagModalClosed, setOnCloseBagModal] = useState(true);

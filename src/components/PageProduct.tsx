@@ -11,7 +11,7 @@ interface ProductPageProps {
     addProductToBagModal: () => void;
 }
 
-export default function ProductPage({
+export default function PageProduct({
     meal,
     mealInfoList,
     addProductToBagModal,

@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
 import { randomPrice } from '@/lib/random';
 import { DataType, requestMealList } from '@/lib/requestMealList';
-import Product from '@/components/Product';
 import { useEffect, useState } from 'react';
 import { ProductType } from '@/state/product';
+import ListProduct from '@/components/ListProduct';
 
 interface HomeProps {
     productList: ProductType[] | null;
@@ -56,13 +56,13 @@ const Home: NextPage<HomeProps> = ({ productList }: HomeProps) => {
     function renderProductList() {
         if (productListFromStorage)
             return productListFromStorage.map((product) => {
-                return <Product key={product.idMeal} product={product} />;
+                return <ListProduct key={product.idMeal} product={product} />;
             });
 
         if (!productList) return 'product list request error';
 
         return productList.map((product) => {
-            return <Product key={product.idMeal} product={product} />;
+            return <ListProduct key={product.idMeal} product={product} />;
         });
     }
 

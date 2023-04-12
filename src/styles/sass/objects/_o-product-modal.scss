@@ -9,28 +9,41 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 50%;
-    height: 80%;
+    height: calc(var(--app-base-measure) * 60);
+    width: calc(var(--app-base-measure) * 80);
+    padding: calc(var(--app-base-measure) * 2);
     background-color: black;
     color: white;
+
+    @media screen and (max-width: 768px) {
+        height: calc(var(--app-base-measure) * 50);
+        width: calc(var(--app-base-measure) * 40);
+    }
 
     & .image{
         position: relative;
         width: calc(var(--app-base-measure) * 30);
         height: calc(var(--app-base-measure) * 30);
+
+        @media screen and (max-width: 768px) {
+            width: calc(var(--app-base-measure) * 20);
+            height: calc(var(--app-base-measure) * 20);
+        }
     }
 
     & .add-remove-group{
         display: flex;
         gap: calc(var(--app-base-measure) * 6);
 
-        & .remove-item{
+        & .subtract-item{
             padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
             background-color: red;
         }
 
         & .amount{
             background-color: white;
+            text-align: center;
+            width: calc(var(--app-base-measure) * 5);
             padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
             color: black;
         }

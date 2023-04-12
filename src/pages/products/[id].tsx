@@ -1,4 +1,4 @@
-import ProductPage from '@/components/ProductPage';
+import PageProduct from '@/components/PageProduct';
 import { requestMealInfo } from '@/lib/requestMealInfo';
 import { DataType, requestMealList } from '@/lib/requestMealList';
 import { Meal } from '@/state/product';
@@ -11,7 +11,7 @@ interface ProductPageProps {
 }
 
 export default function Page(props: ProductPageProps) {
-    return <ProductPage {...props} />;
+    return <PageProduct {...props} />;
 }
 
 export async function getStaticPaths() {

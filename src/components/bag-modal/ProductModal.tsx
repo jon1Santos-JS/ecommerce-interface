@@ -4,7 +4,7 @@ import { Action } from '@/state/action/bagModal';
 import { ProductType } from '@/state/product';
 import { BagModalProduct } from '@/state/reducers/bagModalReducer';
 import { Dispatch, useEffect, useState } from 'react';
-import PreImage from './PreImage';
+import PreImage from '../PreImage';
 
 interface ProductModalProps {
     isClosed: boolean;
@@ -32,14 +32,54 @@ export default function ProductModal({
         const { product, amount } = bagModalProduct;
 
         const productImage = createImage(product);
-        const name = <div className="name">{product.strMeal}</div>;
-        const price = (
+        const productName = <div className="name">{product.strMeal}</div>;
+        const productPrice = (
             <div className="price">
                 {product.price && currency(product.price, 'USD')}
             </div>
         );
-        const amountLogic =
-            amount === 1 ? null : <div className="amount">{amount}</div>;
+        const productSubtract = (
+            <button
+                className="subtract-item c-button"
+                onClick={() => {
+                    if (amount === 1) onCloseModal(true);
+                    dispatch({
+                        type: BagModalActionTypes.SUBTRACT_PRODUCT,
+                        product: product,
+                    });
+                }}
+            >
+                -
+            </button>
+        );
+        const productAmount = <div className="amount">{amount}</div>;
+        const productAdd = (
+            <button
+                className="add-item c-button"
+                onClick={() => {
+                    dispatch({
+                        type: BagModalActionTypes.ADD_PRODUCT,
+                        product: product,
+                    });
+                }}
+            >
+                +
+            </button>
+        );
+        const productExclude = (
+            <button
+                className="exclude-item c-button"
+                onClick={() => {
+                    dispatch({
+                        type: BagModalActionTypes.EXCLUDE_PRODUCT,
+                        product: product,
+                    });
+                    onCloseModal(true);
+                }}
+            >
+                exclude
+            </button>
+        );
 
         return (
             <div
@@ -47,24 +87,14 @@ export default function ProductModal({
                 onClick={(e) => e.stopPropagation()}
             >
                 {productImage ?? 'product image was not found'}
-                {name}
-                {price}
+                {productName}
+                {productPrice}
                 <div className="add-remove-group">
-                    <button className="remove-item c-button">-</button>
-                    {amountLogic}
-                    <button
-                        className="add-item c-button"
-                        onClick={() => {
-                            dispatch({
-                                type: BagModalActionTypes.ADD_PRODUCT,
-                                product: product,
-                            });
-                        }}
-                    >
-                        +
-                    </button>
+                    {productSubtract}
+                    {productAmount}
+                    {productAdd}
                 </div>
-                <button className="exclude-item c-button">exclude</button>
+                {productExclude}
             </div>
         );
 
