@@ -2,33 +2,24 @@ import { BagModalActionTypes } from '../action-types/bagModal';
 import { Action } from '../action/bagModal';
 import { ProductType } from '../product';
 
-export interface BagModalProduct {
+export interface BagModalItem {
     product: ProductType | null;
     amount: number;
 }
 
 export interface BagModalState {
-    products: BagModalProduct[];
+    items: BagModalItem[];
     total: number;
 }
 
-function findProduct(
-    stateProductList: BagModalProduct[],
-    productToFind: ProductType,
-) {
-    return stateProductList.find((product) => {
-        return product.product?.idMeal === productToFind.idMeal;
-    });
+function findProduct(items: BagModalItem[], productToFind: ProductType) {
+    return items.find((item) => item.product?.idMeal === productToFind.idMeal);
 }
 
-function excludeProduct(
-    stateProductList: BagModalProduct[],
-    productToExclude: ProductType,
-) {
-    const newList = stateProductList.filter(
-        (BGProduct) => BGProduct.product?.idMeal !== productToExclude?.idMeal,
+function excludeProduct(items: BagModalItem[], productToExclude: ProductType) {
+    return items.filter(
+        (item) => item.product?.idMeal !== productToExclude?.idMeal,
     );
-    return newList;
 }
 
 export function bagModalReducer(state: BagModalState, action: Action) {
@@ -36,36 +27,37 @@ export function bagModalReducer(state: BagModalState, action: Action) {
         case BagModalActionTypes.ADD_PRODUCT: {
             if (!action.product) return { ...state };
 
-            const foundProduct = findProduct(state.products, action.product);
+            const foundItem = findProduct(state.items, action.product);
 
-            if (foundProduct && foundProduct.product) {
-                const newProducts = state.products.map((value) => {
-                    if (value.product?.idMeal === foundProduct.product?.idMeal)
+            if (foundItem && foundItem.product) {
+                const newItems = state.items.map((item) => {
+                    if (item.product?.idMeal === foundItem.product?.idMeal)
                         return {
-                            product: value.product,
-                            amount: value.amount + 1,
+                            product: item.product,
+                            amount: item.amount + 1,
                         };
 
-                    return value;
+                    return item;
                 });
 
-                if (foundProduct.amount >= 25) return { ...state };
+                if (foundItem.amount >= 25) return { ...state };
 
                 return {
                     ...state,
-                    products: newProducts,
-                    total: state.total + foundProduct.product.price,
+                    items: newItems,
+                    total: state.total + foundItem.product.price,
                 };
             } else {
-                const newProducts = state.products ?? [];
-                newProducts.push({
+                const newItems = state.items;
+
+                newItems.push({
                     product: action.product,
                     amount: 1,
                 });
 
                 return {
                     ...state,
-                    products: newProducts,
+                    items: newItems,
                     total: state.total + action.product.price,
                 };
             }
@@ -73,64 +65,54 @@ export function bagModalReducer(state: BagModalState, action: Action) {
         case BagModalActionTypes.SUBTRACT_PRODUCT: {
             if (!action.product) return { ...state };
 
-            const foundProduct = findProduct(state.products, action.product);
+            const foundItem = findProduct(state.items, action.product);
 
-            if (!foundProduct || !foundProduct.product) return { ...state };
+            if (!foundItem || !foundItem.product) return { ...state };
 
-            if (foundProduct.amount === 1) {
-                const newProducts = excludeProduct(
-                    state.products,
-                    foundProduct.product,
-                );
+            if (foundItem.amount === 1) {
+                const newItems = excludeProduct(state.items, foundItem.product);
 
                 return {
                     ...state,
-                    products: newProducts,
-                    total: state.total - foundProduct.product.price,
+                    items: newItems,
+                    total: state.total - foundItem.product.price,
                 };
             }
 
-            const newProducts = state.products.map((BGProduct) => {
-                if (BGProduct.product?.idMeal === foundProduct.product?.idMeal)
+            const newItems = state.items.map((item) => {
+                if (item.product?.idMeal === foundItem.product?.idMeal)
                     return {
-                        product: foundProduct.product,
-                        amount: BGProduct.amount - 1,
+                        product: foundItem.product,
+                        amount: item.amount - 1,
                     };
-                return BGProduct;
+                return item;
             });
 
             return {
                 ...state,
-                products: newProducts,
-                total: state.total - foundProduct.product.price,
+                items: newItems,
+                total: state.total - foundItem.product.price,
             };
         }
         case BagModalActionTypes.CLEAR_BAG: {
-            return { ...state, products: [], total: 0 };
+            return { ...state, items: [], total: 0 };
         }
         //HYDRATING CLIENT STATE
         case BagModalActionTypes.EXCLUDE_PRODUCT: {
             if (!action.product) return { ...state };
 
-            const productToExclude = findProduct(
-                state.products,
-                action.product,
-            );
+            const itemToExclude = findProduct(state.items, action.product);
 
-            if (!productToExclude || !productToExclude.product)
-                return { ...state };
+            if (!itemToExclude || !itemToExclude.product) return { ...state };
 
             const amountToSubtract =
-                productToExclude.product?.price * productToExclude.amount;
+                itemToExclude.product?.price * itemToExclude.amount;
 
-            const newProducts = excludeProduct(
-                state.products,
-                productToExclude.product,
-            );
+            const newItems = excludeProduct(state.items, itemToExclude.product);
 
             return {
                 ...state,
-                products: newProducts,
+                items: newItems,
                 total: state.total - amountToSubtract,
             };
         }
@@ -143,7 +125,7 @@ export function bagModalReducer(state: BagModalState, action: Action) {
 
             const parsedState: BagModalState = JSON.parse(stringifiedState);
 
-            return parsedState;
+            return { ...state, ...parsedState };
         }
         default:
             return { ...state };

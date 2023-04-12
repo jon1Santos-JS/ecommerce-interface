@@ -31,6 +31,10 @@
         }
     }
 
+    & .name{
+        text-align: center;
+    }
+
     & .add-remove-group{
         display: flex;
         gap: calc(var(--app-base-measure) * 6);

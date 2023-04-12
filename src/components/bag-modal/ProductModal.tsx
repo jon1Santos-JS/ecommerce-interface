@@ -2,34 +2,39 @@ import currency from '@/lib/currency';
 import { BagModalActionTypes } from '@/state/action-types/bagModal';
 import { Action } from '@/state/action/bagModal';
 import { ProductType } from '@/state/product';
-import { BagModalProduct } from '@/state/reducers/bagModalReducer';
-import { Dispatch, useEffect, useState } from 'react';
+import { BagModalItem } from '@/state/reducers/bagModalReducer';
+import { Dispatch } from 'react';
 import PreImage from '../PreImage';
 
 interface ProductModalProps {
-    isClosed: boolean;
     dispatch: Dispatch<Action>;
-    bagModalProduct: BagModalProduct | null | undefined;
+    bagModalItem: BagModalItem | null | undefined;
+    onClose: () => void;
+    isOpen: boolean;
 }
 
 export default function ProductModal({
-    isClosed,
     dispatch,
-    bagModalProduct,
+    bagModalItem,
+    onClose,
+    isOpen,
 }: ProductModalProps) {
-    const [isModalClosed, onCloseModal] = useState(isClosed);
-    const closeModalLogic = `o-product-modal ${
-        isModalClosed ? 'is-closed' : ''
-    }`;
+    const closeModalLogic = `${isOpen ? '' : 'is-closed'}`;
 
-    useEffect(() => onCloseModal(isClosed), [isClosed]);
-
-    return <>{renderProduct()}</>;
+    return (
+        <>
+            <div
+                className={`close-modals ${closeModalLogic}`}
+                onClick={() => onClose()}
+            ></div>
+            {renderProduct()}
+        </>
+    );
 
     function renderProduct() {
-        if (!bagModalProduct || !bagModalProduct.product) return null;
+        if (!bagModalItem || !bagModalItem.product) return null;
 
-        const { product, amount } = bagModalProduct;
+        const { product, amount } = bagModalItem;
 
         const productImage = createImage(product);
         const productName = <div className="name">{product.strMeal}</div>;
@@ -42,7 +47,7 @@ export default function ProductModal({
             <button
                 className="subtract-item c-button"
                 onClick={() => {
-                    if (amount === 1) onCloseModal(true);
+                    if (amount === 1) onClose();
                     dispatch({
                         type: BagModalActionTypes.SUBTRACT_PRODUCT,
                         product: product,
@@ -74,7 +79,7 @@ export default function ProductModal({
                         type: BagModalActionTypes.EXCLUDE_PRODUCT,
                         product: product,
                     });
-                    onCloseModal(true);
+                    onClose();
                 }}
             >
                 exclude

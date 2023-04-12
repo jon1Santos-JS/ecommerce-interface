@@ -4,27 +4,25 @@ import type { AppProps } from 'next/app';
 import '../styles/sass/index.scss';
 import { useEffect, useReducer, useState } from 'react';
 import {
-    BagModalProduct,
+    BagModalItem,
     bagModalReducer,
 } from '@/state/reducers/bagModalReducer';
 import { Meal } from '@/state/product';
 import { getProductPrice } from '@/hook/useStorage';
 import { BagModalActionTypes } from '@/state/action-types/bagModal';
 import ProductModal from '@/components/bag-modal/ProductModal';
+import { useRouter } from 'next/router';
 
 export default function App({ Component, pageProps }: AppProps) {
-    const [isBagModalClosed, setOnCloseBagModal] = useState(true);
-    const [isProductModalClosed, setOnCloseProductModal] = useState(true);
+    const [displayBagModal, setDisplayBagModal] = useState(false);
+    const [displayProductModal, setDisplayProductModal] = useState(false);
     const [bagModalState, dispatch] = useReducer(bagModalReducer, {
-        products: [],
+        items: [],
         total: 0,
     });
-    const [bagModalProduct, getBagModalProductToEdit] =
-        useState<BagModalProduct | null>();
-
-    const closeBagModal = isBagModalClosed ? 'is-closed' : '';
-
-    const closeProductModal = isProductModalClosed ? 'is-closed' : '';
+    const [bagModalItem, getBagModalItemToEdit] =
+        useState<BagModalItem | null>();
+    const router = useRouter();
 
     const addProductToBagModal = () => {
         if (!pageProps.meal) return;
@@ -48,42 +46,42 @@ export default function App({ Component, pageProps }: AppProps) {
         dispatch({ type: BagModalActionTypes.HYDRATE });
     }, []);
 
+    useEffect(() => onCloseModals(), [router]);
+
     if (pageProps.statusCode === 404) return <Component {...pageProps} />;
 
-    const closeModalByClickOut = () => {
-        if (isProductModalClosed) {
-            !isBagModalClosed && setOnCloseBagModal(true);
-        }
-        !isProductModalClosed && setOnCloseProductModal(true);
-    };
-
     return (
-        <div className="o-app" onClick={closeModalByClickOut}>
+        <div className="o-app">
             <NavigationBar onOpenModal={onOpenBagModal} />
-            <div className={`close-modals ${closeBagModal}`}></div>
             {isProductPage}
             <BagModal
-                isClosed={isBagModalClosed}
+                isOpen={displayBagModal}
+                onClose={() => setDisplayBagModal(false)}
                 state={bagModalState}
                 dispatch={dispatch}
-                setProduct={getBagModalProductToEdit}
+                setItem={getBagModalItemToEdit}
                 onOpenProductModal={onOpenProductModal}
             />
-            <div className={`close-modals ${closeProductModal}`}></div>
             <ProductModal
-                isClosed={isProductModalClosed}
-                bagModalProduct={bagModalProduct}
+                bagModalItem={bagModalItem}
                 dispatch={dispatch}
+                onClose={() => setDisplayProductModal(false)}
+                isOpen={displayProductModal}
             />
         </div>
     );
 
     function onOpenBagModal() {
-        setOnCloseBagModal(false);
+        setDisplayBagModal(true);
     }
 
     function onOpenProductModal() {
-        setOnCloseProductModal(false);
+        setDisplayProductModal(true);
+    }
+
+    function onCloseModals() {
+        setDisplayProductModal(false);
+        setDisplayBagModal(false);
     }
 
     function getProduct(meal: Meal) {

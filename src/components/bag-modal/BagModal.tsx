@@ -1,19 +1,17 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import PreImage from '../PreImage';
 import closeIcon from '../../../public/images/closeIcon.svg';
-import {
-    BagModalProduct,
-    BagModalState,
-} from '@/state/reducers/bagModalReducer';
+import { BagModalItem, BagModalState } from '@/state/reducers/bagModalReducer';
 import { Action } from '@/state/action/bagModal';
 import { BagModalActionTypes } from '@/state/action-types/bagModal';
-import BGProduct from './BGProduct';
+import BGItem from './BGItem';
 
 interface BagModalProps {
-    isClosed: boolean;
+    onClose: () => void;
+    isOpen: boolean;
     state: BagModalState;
     dispatch: Dispatch<Action>;
-    setProduct: Dispatch<SetStateAction<BagModalProduct | null | undefined>>;
+    setItem: Dispatch<SetStateAction<BagModalItem | null | undefined>>;
     onOpenProductModal: () => void;
 }
 
@@ -23,14 +21,14 @@ export function saveState(state: BagModalState) {
 }
 
 export default function BagModal({
-    isClosed,
+    isOpen,
+    onClose,
     state,
     dispatch,
-    setProduct,
+    setItem,
     onOpenProductModal,
 }: BagModalProps) {
-    const [isModalClosed, onCloseModal] = useState(isClosed);
-    const closeModalLogic = `o-bag-modal ${isModalClosed ? 'is-closed' : ''}`;
+    const closeModalLogic = `${isOpen ? '' : 'is-closed'}`;
     const initialState = useRef(state);
 
     //HYDRATING SERVER STATE
@@ -38,42 +36,49 @@ export default function BagModal({
         if (state !== initialState.current) saveState(state);
     }, [state]);
 
-    useEffect(() => onCloseModal(isClosed), [isClosed]);
-
     return (
-        <div onClick={(e) => e.stopPropagation()} className={closeModalLogic}>
-            <div className="content">
-                <div
-                    className="close-icon c-button"
-                    onClick={() => onCloseModal(true)}
-                >
-                    <PreImage
-                        attributes={{
-                            alt: 'closeIcon',
-                            src: closeIcon,
-                        }}
-                        objectFit="fill"
-                    />
+        <>
+            <div
+                className={`close-modals ${closeModalLogic}`}
+                onClick={() => onClose()}
+            ></div>
+            <div
+                onClick={(e) => e.stopPropagation()}
+                className={`o-bag-modal ${closeModalLogic}`}
+            >
+                <div className="content">
+                    <div
+                        className="close-icon c-button"
+                        onClick={() => onClose()}
+                    >
+                        <PreImage
+                            attributes={{
+                                alt: 'closeIcon',
+                                src: closeIcon,
+                            }}
+                            objectFit="fill"
+                        />
+                    </div>
+                    <div className="list">{toRenderProductList()}</div>
+                    <div className="box">{toRenderTotalBox()}</div>
                 </div>
-                <div className="list">{toRenderProductList()}</div>
-                <div className="box">{toRenderTotalBox()}</div>
             </div>
-        </div>
+        </>
     );
 
     function toRenderProductList() {
-        if (!state.products) return null;
+        if (!state.items) return null;
 
         return (
             <div className="body">
-                {state.products.map((BGProductData) => {
-                    if (!BGProductData.product) return;
+                {state.items.map((item) => {
+                    if (!item.product) return;
 
                     return (
-                        <BGProduct
-                            key={BGProductData.product.idMeal}
-                            bagModalProduct={BGProductData}
-                            setProduct={setProduct}
+                        <BGItem
+                            key={item.product.idMeal}
+                            bagModalItem={item}
+                            setItem={setItem}
                             onOpenProductModal={onOpenProductModal}
                         />
                     );
