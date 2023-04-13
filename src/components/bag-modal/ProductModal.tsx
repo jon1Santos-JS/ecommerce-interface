@@ -24,7 +24,7 @@ export default function ProductModal({
     return (
         <>
             <div
-                className={`close-modals ${closeModalLogic}`}
+                className={`o-close-product-modal ${closeModalLogic}`}
                 onClick={() => onClose()}
             ></div>
             {renderProduct()}
@@ -88,7 +88,7 @@ export default function ProductModal({
 
         return (
             <div
-                className={`o-product-modal ${closeModalLogic}`}
+                className={`o-product-modal s-primary-style ${closeModalLogic}`}
                 onClick={(e) => e.stopPropagation()}
             >
                 {productImage ?? 'product image was not found'}
@@ -114,6 +114,7 @@ export default function ProductModal({
                             blurDataUrl: product.strMealThumb,
                         }}
                         objectFit="fill"
+                        borderRadius="0.4rem"
                     />
                 </div>
             );

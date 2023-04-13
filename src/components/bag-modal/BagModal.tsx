@@ -5,6 +5,7 @@ import { BagModalItem, BagModalState } from '@/state/reducers/bagModalReducer';
 import { Action } from '@/state/action/bagModal';
 import { BagModalActionTypes } from '@/state/action-types/bagModal';
 import BGItem from './BGItem';
+import currency from '@/lib/currency';
 
 interface BagModalProps {
     onClose: () => void;
@@ -39,12 +40,12 @@ export default function BagModal({
     return (
         <>
             <div
-                className={`close-modals ${closeModalLogic}`}
+                className={`o-close-bag-modal ${closeModalLogic}`}
                 onClick={() => onClose()}
             ></div>
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`o-bag-modal ${closeModalLogic}`}
+                className={`o-bag-modal s-secondary-style ${closeModalLogic}`}
             >
                 <div className="content">
                     <div
@@ -60,7 +61,9 @@ export default function BagModal({
                         />
                     </div>
                     <div className="list">{toRenderProductList()}</div>
-                    <div className="box">{toRenderTotalBox()}</div>
+                    <div className="box s-primary-style">
+                        {toRenderTotalBox()}
+                    </div>
                 </div>
             </div>
         </>
@@ -91,8 +94,8 @@ export default function BagModal({
         return (
             <>
                 <div className="total">
-                    <div className="title">total</div>
-                    <div className="value">{state.total}</div>
+                    <div className="title">TOTAL</div>
+                    <div className="value">{currency(state.total, 'USD')}</div>
                 </div>
                 <div className="buttons">
                     <button className="finalizar-compra c-button">

@@ -19,7 +19,7 @@
         gap: calc(var(--app-base-measure) * 3);
 
         @media screen and (max-width: 768px) {
-            gap: calc(var(--app-base-measure) * 2);
+            gap: calc(var(--app-base-measure));
         }
 
         & .image{
@@ -28,8 +28,8 @@
             width: calc(var(--app-base-measure) * 30);
 
             @media screen and (max-width: 768px) {
-                height: calc(var(--app-base-measure) * 25);
-                width: calc(var(--app-base-measure) * 25);
+                height: calc(var(--app-base-measure) * 20);
+                width: calc(var(--app-base-measure) * 20);
             }
         }
 
@@ -37,23 +37,51 @@
             text-align: center;
             width: 80%;
             margin: 0 auto;
+
+            @media screen and (max-width: 768px) {
+                margin: var(--app-base-measure) auto;
+            }
         }
 
         & .info{
             display: flex;
             flex-direction: column;
-            gap: calc(var(--app-base-measure) * 2);
+            justify-content: center;
+            align-items: center;
+            gap: calc(var(--app-base-measure) * 4);
             height: calc(var(--app-base-measure) * 20);
             width: calc(var(--app-base-measure) * 30);
             line-height: calc(var(--app-base-measure) * 3);
             text-align: center;
 
+            @media screen and (max-width: 768px) {
+                gap: calc(var(--app-base-measure));
+            }
+
+
             & .title{
+                font-size: calc(var(--app-base-font-size) / 1.2);
                 font-weight: bold;
             }
 
             & .ingredients{
+                text-align: center;
+                width: 80%;
                 overflow-y: auto;
+                font-size: calc(var(--app-base-font-size) / 1.2);
+
+                &::-webkit-scrollbar {
+                    width: calc(var(--app-base-measure) + 2px);
+                    background: var(--thirty-color);
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: var(--primary-color);
+                }
+            }
+
+            & .price{
+                font-size: calc(var(--app-base-font-size) / 1.2);
             }
         }
     }

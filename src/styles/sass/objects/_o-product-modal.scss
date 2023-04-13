@@ -1,3 +1,11 @@
+.o-close-product-modal{
+    position: fixed;
+    z-index: var(--modal-index);
+    width: 100%;
+    bottom: 0;
+    height: 100%;
+}
+
 .o-product-modal{
     display: flex;
     flex-direction: column;
@@ -9,13 +17,14 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    height: calc(var(--app-base-measure) * 60);
-    width: calc(var(--app-base-measure) * 80);
-    padding: calc(var(--app-base-measure) * 2);
-    background-color: black;
-    color: white;
+    height: calc(var(--app-base-measure) * 70);
+    width: calc(var(--app-base-measure) * 70);
+    padding: calc(var(--app-base-measure) * 4) calc(var(--app-base-measure) * 2);
+    font-size: calc(var(--app-base-font-size) / 1.2);
+    border-radius: 0.4rem;
 
     @media screen and (max-width: 768px) {
+        top: 40%;
         height: calc(var(--app-base-measure) * 50);
         width: calc(var(--app-base-measure) * 40);
     }
@@ -32,6 +41,7 @@
     }
 
     & .name{
+        font-size: calc(var(--app-base-font-size));
         text-align: center;
     }
 

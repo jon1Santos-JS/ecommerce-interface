@@ -12,6 +12,9 @@ import { getProductPrice } from '@/hook/useStorage';
 import { BagModalActionTypes } from '@/state/action-types/bagModal';
 import ProductModal from '@/components/bag-modal/ProductModal';
 import { useRouter } from 'next/router';
+import { Nunito } from '@next/font/google';
+
+const dongle = Nunito({ weight: '400', subsets: ['latin'] });
 
 export default function App({ Component, pageProps }: AppProps) {
     const [displayBagModal, setDisplayBagModal] = useState(false);
@@ -51,24 +54,30 @@ export default function App({ Component, pageProps }: AppProps) {
     if (pageProps.statusCode === 404) return <Component {...pageProps} />;
 
     return (
-        <div className="o-app">
-            <NavigationBar onOpenModal={onOpenBagModal} />
-            {isProductPage}
-            <BagModal
-                isOpen={displayBagModal}
-                onClose={() => setDisplayBagModal(false)}
-                state={bagModalState}
-                dispatch={dispatch}
-                setItem={getBagModalItemToEdit}
-                onOpenProductModal={onOpenProductModal}
-            />
-            <ProductModal
-                bagModalItem={bagModalItem}
-                dispatch={dispatch}
-                onClose={() => setDisplayProductModal(false)}
-                isOpen={displayProductModal}
-            />
-        </div>
+        <main className={dongle.className}>
+            <div className="o-app">
+                <NavigationBar
+                    onOpenBagModal={onOpenBagModal}
+                    onCloseBagModal={() => setDisplayBagModal(false)}
+                    isBagModalOpen={displayBagModal}
+                />
+                {isProductPage}
+                <BagModal
+                    isOpen={displayBagModal}
+                    onClose={() => setDisplayBagModal(false)}
+                    state={bagModalState}
+                    dispatch={dispatch}
+                    setItem={getBagModalItemToEdit}
+                    onOpenProductModal={onOpenProductModal}
+                />
+                <ProductModal
+                    bagModalItem={bagModalItem}
+                    dispatch={dispatch}
+                    onClose={() => setDisplayProductModal(false)}
+                    isOpen={displayProductModal}
+                />
+            </div>
+        </main>
     );
 
     function onOpenBagModal() {

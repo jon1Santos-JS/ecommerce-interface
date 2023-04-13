@@ -1,28 +1,33 @@
+.o-close-bag-modal{
+    position: fixed;
+    z-index: var(--modal-index);
+    width: 100%;
+    bottom: 0;
+    height: calc(100% - var(--app-base-measure) * 6);
+}
+
 .o-bag-modal{
     position: fixed;
     bottom: 0;
     right: 0;
     z-index: var(--modal-index);
-    background-color: rgb(181, 181, 181);
     height: calc(100% - var(--app-base-measure) * 6);
     width: 40%;
     overflow-y: auto;
+    font-size: calc(var(--app-base-font-size) / 1.2);
+    border-radius: 0.4rem;
 
     @media screen and (max-width: 768px) {
         width: 100%;
-
     }
 
     &::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    &::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px gray;
+        width: calc(var(--app-base-measure) + 2px);
+        background: var(--thirty-color);
     }
 
     &::-webkit-scrollbar-thumb {
-        background: gray;
+        background: var(--primary-color);
     }
 
     & .content{
@@ -41,14 +46,11 @@
             }
         }
 
-
-
         & .list{
             padding: calc(var(--app-base-measure) * 8) calc(var(--app-base-measure) * 4);
 
             & .body{
-                padding: calc(var(--app-base-measure) * 8) 0;
-                font-size: calc(var(--app-base-font-size) * 0.9);
+                padding: calc(var(--app-base-measure) * 4) 0 calc(var(--app-base-measure) * 12) 0;
                 display: flex;
                 justify-content: space-around;
                 flex-direction: column;
@@ -72,10 +74,12 @@
                     height: calc(var(--app-base-measure) * 6);
 
                     & .amount{
-                        padding: 0 calc(var(--app-base-measure) / 2);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: calc(var(--app-base-font-size) / 1.2);
+                        padding: 1px calc(var(--app-base-measure) / 2);
                         position: absolute;
-                        text-align: center;
-                        background-color: white;
                         border-radius: 2rem;
                         bottom: -10%;
                         left: -10%;
@@ -84,37 +88,26 @@
 
                 & .price{
                     font-weight: bold;
+                    text-align: right;
+                    width: 20%;
                 }
 
 
             }
 
         }
-        & .bg-box{
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            width: 40%;
-            height: 20%;
-
-            @media screen and (max-width: 768px) {
-                width: 100%;
-
-            }
-        }
 
         & .box{
             display: flex;
             flex-direction: column;
-            gap: calc(var(--app-base-measure));
+            gap: calc(var(--app-base-measure) * 1.6);
             overflow: hidden;
             position: fixed;
             bottom: 0;
             right: 0;
             width: 40%;
-            height: calc(var(--app-base-measure) * 12);
-            background: linear-gradient(0deg, rgba(128,128,128,1) 0%, rgba(128,128,128,1) 83%, rgba(128,128,128,0) 100%);
-            color: white;
+            height: calc(var(--app-base-measure) * 15);
+            background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%);
             padding: calc(var(--app-base-measure) * 4) calc(var(--app-base-measure) * 6) 0 calc(var(--app-base-measure) * 6);
 
             @media screen and (max-width: 768px) {
@@ -123,11 +116,9 @@
             }
 
             & .total{
+                font-weight: bold;
                 display: flex;
                 justify-content: space-between;
-
-
-
             }
 
             & .buttons{

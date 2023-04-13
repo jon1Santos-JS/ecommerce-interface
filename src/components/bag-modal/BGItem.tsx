@@ -52,7 +52,9 @@ export default function BGItem({
 
 function createImage(product: ProductType, amount: number) {
     const amountLogic =
-        amount === 1 ? null : <div className="amount">{amount}</div>;
+        amount === 1 ? null : (
+            <div className="amount s-primary-style">{amount}</div>
+        );
 
     return (
         <div className="image">
@@ -64,6 +66,7 @@ function createImage(product: ProductType, amount: number) {
                     blurDataUrl: product.strMealThumb,
                 }}
                 objectFit="fill"
+                borderRadius="0.2rem"
             />
             {amountLogic}
         </div>

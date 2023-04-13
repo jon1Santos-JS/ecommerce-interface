@@ -18,16 +18,20 @@ export default function ListProduct({ product }: ProductProps) {
     const name = toShortenName(product.strMeal);
 
     const productImage = (
-        <div className="image">
-            <PreImage
-                attributes={{
-                    alt: product.strMeal,
-                    src: product.strMealThumb,
-                    id: product.idMeal,
-                    blurDataUrl: product.strMealThumb,
-                }}
-                objectFit="cover"
-            />
+        <div className="image-structure">
+            <div className="image ">
+                <PreImage
+                    attributes={{
+                        alt: product.strMeal,
+                        src: product.strMealThumb,
+                        id: product.idMeal,
+                        blurDataUrl: product.strMealThumb,
+                    }}
+                    objectFit="cover"
+                    borderRadius="0.4rem"
+                />
+            </div>
+            <div className="bg-image"></div>
         </div>
     );
     const productName = <h4 className="name">{name}</h4>;
@@ -39,7 +43,7 @@ export default function ListProduct({ product }: ProductProps) {
 
     return (
         <Link
-            className="o-product"
+            className="o-product s-primary-style o-product-card"
             href={`products/${product && product.idMeal}`}
         >
             {renderProduct()}
@@ -52,8 +56,10 @@ export default function ListProduct({ product }: ProductProps) {
         return (
             <label className="content">
                 {productImage}
-                {productName}
-                {price}
+                <div className="info">
+                    {productName}
+                    {price}
+                </div>
             </label>
         );
     }

@@ -39,6 +39,7 @@ export default function PageProduct({
                         blurDataUrl: meal.strMealThumb,
                     }}
                     objectFit="fill"
+                    borderRadius="0.4rem"
                 />
             </div>
         );

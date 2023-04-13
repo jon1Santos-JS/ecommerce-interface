@@ -1,16 +1,27 @@
 import Link from 'next/link';
 
 interface NavigationBarProps {
-    onOpenModal: () => void;
+    onOpenBagModal: () => void;
+    onCloseBagModal: () => void;
+    isBagModalOpen: boolean;
 }
 
-export default function NavigationBar({ onOpenModal }: NavigationBarProps) {
+export default function NavigationBar({
+    onOpenBagModal,
+    onCloseBagModal,
+    isBagModalOpen,
+}: NavigationBarProps) {
     return (
-        <nav className="o-navigation-bar">
+        <nav className="o-navigation-bar s-primary-style">
             <Link className="c-button" href="/">
                 Food
             </Link>
-            <button className="bag c-button" onClick={onOpenModal}>
+            <button
+                className="bag c-button"
+                onClick={() =>
+                    isBagModalOpen ? onCloseBagModal() : onOpenBagModal()
+                }
+            >
                 Bag
             </button>
         </nav>

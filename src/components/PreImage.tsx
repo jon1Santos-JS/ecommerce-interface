@@ -3,9 +3,14 @@ import Image, { ImageLoaderProps } from 'next/image';
 interface PreImageProps {
     attributes: { alt: string; src: string; id?: string; blurDataUrl?: string };
     objectFit: 'cover' | 'fill';
+    borderRadius?: string;
 }
 
-export default function PreImage({ attributes, objectFit }: PreImageProps) {
+export default function PreImage({
+    attributes,
+    objectFit,
+    borderRadius,
+}: PreImageProps) {
     const priority =
         attributes.id && attributes.id === '52855' ? true : undefined;
 
@@ -14,7 +19,7 @@ export default function PreImage({ attributes, objectFit }: PreImageProps) {
             loader={imageLoader}
             src={attributes.src}
             blurDataURL={attributes.blurDataUrl && attributes.blurDataUrl}
-            style={{ objectFit: objectFit }}
+            style={{ objectFit: objectFit, borderRadius: borderRadius }}
             fill={true}
             alt={attributes.alt}
             priority={priority}
