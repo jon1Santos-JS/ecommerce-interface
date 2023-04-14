@@ -7,13 +7,13 @@ import PreImage from './PreImage';
 
 interface ProductPageProps {
     meal: Meal | null;
-    mealInfoList: string[] | null;
+    mealIngredientsList: string[] | null;
     addProductToBagModal: () => void;
 }
 
 export default function PageProduct({
     meal,
-    mealInfoList,
+    mealIngredientsList,
     addProductToBagModal,
 }: ProductPageProps) {
     const [price, setPrice] = useState<number>(0);
@@ -43,29 +43,38 @@ export default function PageProduct({
                 />
             </div>
         );
-        const productName = <h4 className="name">{meal.strMeal}</h4>;
-        const productInfo = mealInfoList && (
+        const productIngredients = mealIngredientsList && (
+            <div className="ingredients">
+                <div className="list l-thirty-style">
+                    {mealIngredientsList.join(', ')}
+                </div>
+            </div>
+        );
+        const productInfo = (
             <div className="info">
-                <div className="title">Ingredients</div>
-                <div className="ingredients">{mealInfoList.join(', ')}</div>
+                <h4 className="name">{meal.strMeal}</h4>
+                <div className="ingredients-title">Ingredients</div>
+                {productIngredients ?? 'product ingredients was not found'}
                 <h4 className="price">
                     {currency(price, 'USD') ?? 'product price was not found'}
                 </h4>
             </div>
         );
         const addButton = (
-            <button className="c-button" onClick={addProductToBagModal}>
+            <button
+                className="add-button c-button l-secondary-style l-primary-button l-success-button"
+                onClick={addProductToBagModal}
+            >
                 Add
             </button>
         );
 
         return (
-            <label className="content">
+            <div className="content">
                 {productImage}
-                {productName}
-                {productInfo ?? 'product info was not found'}
+                {productInfo}
                 {addButton}
-            </label>
+            </div>
         );
     }
 

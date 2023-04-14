@@ -14,7 +14,7 @@ function toShortenName(content: string) {
     return toAddDots(toTrimString(content, 2));
 }
 
-export default function ListProduct({ product }: ProductProps) {
+export default function Product({ product }: ProductProps) {
     const name = toShortenName(product.strMeal);
 
     const productImage = (
@@ -31,7 +31,7 @@ export default function ListProduct({ product }: ProductProps) {
                     borderRadius="0.4rem"
                 />
             </div>
-            <div className="bg-image"></div>
+            <div className="bg-image l-primary-gradient"></div>
         </div>
     );
     const productName = <h4 className="name">{name}</h4>;
@@ -43,7 +43,7 @@ export default function ListProduct({ product }: ProductProps) {
 
     return (
         <Link
-            className="o-product s-primary-style o-product-card"
+            className="product l-primary-style o-product-card"
             href={`products/${product && product.idMeal}`}
         >
             {renderProduct()}

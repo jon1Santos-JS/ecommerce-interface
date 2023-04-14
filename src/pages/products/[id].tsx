@@ -6,7 +6,7 @@ import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 
 interface ProductPageProps {
     meal: Meal | null;
-    mealInfoList: string[] | null;
+    mealIngredientsList: string[] | null;
     addProductToBagModal: () => void;
 }
 
@@ -36,9 +36,10 @@ export async function getStaticProps({ params }: Params) {
         return array;
     });
 
-    const mealInfoList: string[] = await requestMealInfo(meal.idMeal);
+    const mealIngredientsList: string[] = await requestMealInfo(meal.idMeal);
 
-    if (!mealInfoList) return { props: { meal, mealInfoList: null } };
+    if (!mealIngredientsList)
+        return { props: { meal, mealIngredientsList: null } };
 
-    return { props: { meal, mealInfoList } };
+    return { props: { meal, mealIngredientsList } };
 }

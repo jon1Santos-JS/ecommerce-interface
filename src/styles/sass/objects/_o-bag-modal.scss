@@ -107,7 +107,6 @@
             right: 0;
             width: 40%;
             height: calc(var(--app-base-measure) * 15);
-            background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 95%, rgba(0,0,0,0) 100%);
             padding: calc(var(--app-base-measure) * 4) calc(var(--app-base-measure) * 6) 0 calc(var(--app-base-measure) * 6);
 
             @media screen and (max-width: 768px) {

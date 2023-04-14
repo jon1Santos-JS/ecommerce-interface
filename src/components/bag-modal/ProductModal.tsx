@@ -73,7 +73,7 @@ export default function ProductModal({
         );
         const productExclude = (
             <button
-                className="exclude-item c-button"
+                className="remove-item c-button"
                 onClick={() => {
                     dispatch({
                         type: BagModalActionTypes.EXCLUDE_PRODUCT,
@@ -82,19 +82,19 @@ export default function ProductModal({
                     onClose();
                 }}
             >
-                exclude
+                remove
             </button>
         );
 
         return (
             <div
-                className={`o-product-modal s-primary-style ${closeModalLogic}`}
+                className={`o-product-modal l-primary-style ${closeModalLogic}`}
                 onClick={(e) => e.stopPropagation()}
             >
                 {productImage ?? 'product image was not found'}
                 {productName}
                 {productPrice}
-                <div className="add-remove-group">
+                <div className="add-subtract-group">
                     {productSubtract}
                     {productAmount}
                     {productAdd}

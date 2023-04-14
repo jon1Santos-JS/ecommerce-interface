@@ -45,7 +45,7 @@
         text-align: center;
     }
 
-    & .add-remove-group{
+    & .add-subtract-group{
         display: flex;
         gap: calc(var(--app-base-measure) * 6);
 
@@ -69,7 +69,7 @@
 
     }
 
-    & .exclude-item{
+    & .remove-item{
         padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
         background-color: red;
     }

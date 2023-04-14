@@ -45,7 +45,7 @@ export default function BagModal({
             ></div>
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`o-bag-modal s-secondary-style ${closeModalLogic}`}
+                className={`o-bag-modal l-secondary-style ${closeModalLogic}`}
             >
                 <div className="content">
                     <div
@@ -61,7 +61,7 @@ export default function BagModal({
                         />
                     </div>
                     <div className="list">{toRenderProductList()}</div>
-                    <div className="box s-primary-style">
+                    <div className="box l-primary-style">
                         {toRenderTotalBox()}
                     </div>
                 </div>
@@ -98,11 +98,11 @@ export default function BagModal({
                     <div className="value">{currency(state.total, 'USD')}</div>
                 </div>
                 <div className="buttons">
-                    <button className="finalizar-compra c-button">
-                        finalizar compra
+                    <button className="finalizar-compra c-button l-secondary-style l-success-button">
+                        Finish
                     </button>
                     <button
-                        className="clear-bag c-button"
+                        className="clear-bag c-button l-secondary-style l-warning-button"
                         onClick={(e) => {
                             dispatch({
                                 type: BagModalActionTypes.CLEAR_BAG,
@@ -110,7 +110,7 @@ export default function BagModal({
                             e.stopPropagation();
                         }}
                     >
-                        clear bag
+                        Clear
                     </button>
                 </div>
             </>

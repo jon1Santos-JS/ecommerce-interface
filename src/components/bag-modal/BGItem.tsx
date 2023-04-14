@@ -53,7 +53,7 @@ export default function BGItem({
 function createImage(product: ProductType, amount: number) {
     const amountLogic =
         amount === 1 ? null : (
-            <div className="amount s-primary-style">{amount}</div>
+            <div className="amount l-primary-style">{amount}</div>
         );
 
     return (

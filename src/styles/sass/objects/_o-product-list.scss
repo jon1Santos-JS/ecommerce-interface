@@ -10,4 +10,57 @@
     @media screen and (max-width: 768px) {
         grid-template-columns: repeat(2, minmax(calc(var(--app-base-measure) * 20), 1fr));
     }
+
+    .product{
+        width: 100%;
+        border-radius: 0.5rem;
+        font-size: calc(var(--app-base-font-size) / 1.2);
+        --product-base: calc(var(--app-base-element-measure) * 8);
+
+        & .content{
+            width: 100%;
+            overflow: hidden;
+            cursor: pointer;
+
+            .image-structure{
+                position: relative;
+
+                & .image{
+                    position: relative;
+                    height: calc(var(--product-base) / 8 * 12);
+                }
+
+                & .bg-image{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            & .info{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: calc(var(--app-base-measure) * 2) calc(var(--app-base-measure) * 2) calc(var(--app-base-measure) * 4   ) calc(var(--app-base-measure) * 2);
+                height: calc(var(--product-base) / 1.4);
+
+                & .name{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    white-space: nowrap;
+                    color: inherit;
+                    padding: calc(var(--app-base-measure) * 2);
+                }
+
+                & .price{
+                    color: inherit;
+                    text-align: center;
+                }
+            }
+        }
+    }
 }

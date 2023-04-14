@@ -12,7 +12,7 @@ export default function NavigationBar({
     isBagModalOpen,
 }: NavigationBarProps) {
     return (
-        <nav className="o-navigation-bar s-primary-style">
+        <nav className="o-navigation-bar l-primary-style">
             <Link className="c-button" href="/">
                 Food
             </Link>
