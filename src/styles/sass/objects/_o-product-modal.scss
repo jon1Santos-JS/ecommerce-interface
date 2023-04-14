@@ -51,27 +51,22 @@
 
         & .subtract-item{
             padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
-            background-color: red;
         }
 
         & .amount{
-            background-color: white;
             text-align: center;
             width: calc(var(--app-base-measure) * 5);
             padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
-            color: black;
         }
 
         & .add-item{
             padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
-            background-color: green;
         }
 
     }
 
     & .remove-item{
         padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
-        background-color: red;
     }
 
 }

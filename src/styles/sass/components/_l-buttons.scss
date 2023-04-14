@@ -12,6 +12,12 @@
     }
 }
 
+.l-regular-button{
+    &:hover{
+        background-color: var(--thirty-color);
+    }
+}
+
 .l-primary-button{
-    border: solid 2px var(--primary-color);
+    border: solid 1.5px var(--primary-color);
 }

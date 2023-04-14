@@ -45,21 +45,25 @@ export default function PageProduct({
         );
         const productIngredients = mealIngredientsList && (
             <div className="ingredients">
-                <div className="list l-thirty-style">
-                    {mealIngredientsList.join(', ')}
+                <div className="title">Ingredients</div>
+
+                <div className="list-box">
+                    <div className="list l-thirty-style">
+                        {mealIngredientsList.join(', ')}
+                    </div>
                 </div>
             </div>
         );
         const productInfo = (
             <div className="info">
                 <h4 className="name">{meal.strMeal}</h4>
-                <div className="ingredients-title">Ingredients</div>
                 {productIngredients ?? 'product ingredients was not found'}
                 <h4 className="price">
                     {currency(price, 'USD') ?? 'product price was not found'}
                 </h4>
             </div>
         );
+
         const addButton = (
             <button
                 className="add-button c-button l-secondary-style l-primary-button l-success-button"

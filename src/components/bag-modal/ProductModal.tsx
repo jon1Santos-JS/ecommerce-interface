@@ -45,7 +45,7 @@ export default function ProductModal({
         );
         const productSubtract = (
             <button
-                className="subtract-item c-button"
+                className="subtract-item l-secondary-style l-warning-button c-button"
                 onClick={() => {
                     if (amount === 1) onClose();
                     dispatch({
@@ -60,7 +60,7 @@ export default function ProductModal({
         const productAmount = <div className="amount">{amount}</div>;
         const productAdd = (
             <button
-                className="add-item c-button"
+                className="add-item c-button l-secondary-style l-success-button"
                 onClick={() => {
                     dispatch({
                         type: BagModalActionTypes.ADD_PRODUCT,
@@ -73,7 +73,7 @@ export default function ProductModal({
         );
         const productExclude = (
             <button
-                className="remove-item c-button"
+                className="remove-item l-secondary-style l-warning-button c-button"
                 onClick={() => {
                     dispatch({
                         type: BagModalActionTypes.EXCLUDE_PRODUCT,
@@ -82,7 +82,7 @@ export default function ProductModal({
                     onClose();
                 }}
             >
-                remove
+                Remove
             </button>
         );
 
