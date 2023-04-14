@@ -29,7 +29,7 @@ export default function BagModal({
     setItem,
     onOpenProductModal,
 }: BagModalProps) {
-    const closeModalLogic = `${isOpen ? '' : 'is-closed'}`;
+    const closeModalLogic = `${isOpen ? '' : 'is-bag-modal-closed'}`;
     const initialState = useRef(state);
 
     //HYDRATING SERVER STATE
@@ -61,9 +61,9 @@ export default function BagModal({
                         />
                     </div>
                     <div className="list">{toRenderProductList()}</div>
-                    <div className="box l-primary-style">
-                        {toRenderTotalBox()}
-                    </div>
+                </div>
+                <div className={`box l-primary-style`}>
+                    {toRenderTotalBox()}
                 </div>
             </div>
         </>

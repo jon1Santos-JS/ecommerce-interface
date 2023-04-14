@@ -16,11 +16,12 @@
         border-radius: 0.5rem;
         font-size: calc(var(--app-base-font-size) / 1.2);
         --product-base: calc(var(--app-base-element-measure) * 8);
+        user-select: none;
 
         & .content{
+            cursor: pointer;
             width: 100%;
             overflow: hidden;
-            cursor: pointer;
 
             .image-structure{
                 position: relative;
@@ -52,12 +53,10 @@
                     align-items: center;
                     justify-content: center;
                     white-space: nowrap;
-                    color: inherit;
                     padding: calc(var(--app-base-measure) * 2);
                 }
 
                 & .price{
-                    color: inherit;
                     text-align: center;
                 }
             }

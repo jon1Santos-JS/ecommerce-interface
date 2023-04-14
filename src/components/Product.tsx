@@ -54,7 +54,7 @@ export default function Product({ product }: ProductProps) {
         if (!product) return 'product was not found';
 
         return (
-            <label className="content">
+            <label className="content l-primary-style">
                 {productImage}
                 <div className="info">
                     {productName}

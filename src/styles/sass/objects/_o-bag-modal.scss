@@ -4,6 +4,7 @@
     width: 100%;
     bottom: 0;
     height: calc(100% - var(--app-base-measure) * 6);
+    transition: transform 0.4s ease;
 }
 
 .o-bag-modal{
@@ -15,7 +16,8 @@
     width: 40%;
     overflow-y: auto;
     font-size: calc(var(--app-base-font-size) / 1.2);
-    border-radius: 0.4rem;
+    transition: transform 0.4s ease;
+    border-radius: 0.4rem 0.4rem 0 0;
 
     @media screen and (max-width: 768px) {
         width: 100%;
@@ -98,34 +100,34 @@
 
         }
 
-        & .box{
+    }
+
+    & .box{
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--app-base-measure) * 1.6);
+        overflow: hidden;
+        position: sticky;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: calc(var(--app-base-measure) * 15);
+        padding: calc(var(--app-base-measure) * 4) calc(var(--app-base-measure) * 6) 0 calc(var(--app-base-measure) * 6);
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
+
+        & .total{
+            font-weight: bold;
             display: flex;
-            flex-direction: column;
-            gap: calc(var(--app-base-measure) * 1.6);
-            overflow: hidden;
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            width: 40%;
-            height: calc(var(--app-base-measure) * 15);
-            padding: calc(var(--app-base-measure) * 4) calc(var(--app-base-measure) * 6) 0 calc(var(--app-base-measure) * 6);
+            justify-content: space-between;
+        }
 
-            @media screen and (max-width: 768px) {
-                width: 100%;
+        & .buttons{
+            display: flex;
+            justify-content: space-between;
 
-            }
-
-            & .total{
-                font-weight: bold;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            & .buttons{
-                display: flex;
-                justify-content: space-between;
-
-            }
         }
     }
 }

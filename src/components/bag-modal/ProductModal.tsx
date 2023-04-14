@@ -4,6 +4,7 @@ import { Action } from '@/state/action/bagModal';
 import { ProductType } from '@/state/product';
 import { BagModalItem } from '@/state/reducers/bagModalReducer';
 import { Dispatch } from 'react';
+import closeIcon from '../../../public/images/closeIcon.svg';
 import PreImage from '../PreImage';
 
 interface ProductModalProps {
@@ -57,7 +58,9 @@ export default function ProductModal({
                 -
             </button>
         );
-        const productAmount = <div className="amount">{amount}</div>;
+        const productAmount = (
+            <div className="amount l-secondary-style">{amount}</div>
+        );
         const productAdd = (
             <button
                 className="add-item c-button l-secondary-style l-success-button"
@@ -85,6 +88,20 @@ export default function ProductModal({
                 Remove
             </button>
         );
+        const modalCloseIcon = (
+            <div
+                className="close-icon c-button l-secondary-svg"
+                onClick={() => onClose()}
+            >
+                <PreImage
+                    attributes={{
+                        alt: 'closeIcon',
+                        src: closeIcon,
+                    }}
+                    objectFit="fill"
+                />
+            </div>
+        );
 
         return (
             <div
@@ -100,6 +117,7 @@ export default function ProductModal({
                     {productAdd}
                 </div>
                 {productExclude}
+                {modalCloseIcon}
             </div>
         );
 
