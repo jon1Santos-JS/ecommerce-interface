@@ -1,0 +1,56 @@
+.o-bg-content {
+    display: block;
+    height: 80%;
+    overflow: auto;
+    position: relative;
+
+    &::-webkit-scrollbar {
+        background: var(--thirty-color);
+        width: calc(var(--app-base-measure) + 2px);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+    }
+
+    .top-bg-gradient {
+        height: 10%;
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+
+        @media screen and (width <= 768px) {
+            height: 15%;
+        }
+    }
+
+    .close-icon {
+        --close-icon-measure: calc(var(--app-base-measure) * 2);
+
+        height: var(--close-icon-measure);
+        margin: var(--app-base-measure);
+        position: fixed;
+        width: var(--close-icon-measure);
+        z-index: var(--component-index);
+
+        @media screen and (width <= 768px) {
+            --close-icon-measure: calc(var(--app-base-measure) * 2.5);
+        }
+    }
+
+    .list {
+        padding: calc(var(--app-base-measure) * 4)
+            calc(var(--app-base-measure) * 4) calc(var(--app-base-measure) * 10)
+            calc(var(--app-base-measure) * 4);
+
+        .body {
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--app-base-measure) * 4);
+            justify-content: space-around;
+            padding: calc(var(--app-base-measure) * 4) 0
+                calc(var(--app-base-measure) * 10) 0;
+            width: 100%;
+        }
+    }
+}

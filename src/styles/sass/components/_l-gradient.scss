@@ -1,7 +1,17 @@
-.l-primary-gradient{
-    background: linear-gradient(0deg, var(--primary-color) 0%, var(--primary-color) 10%, var(--gradient-primary-color) 25%);
+.l-primary-gradient {
+    background: linear-gradient(
+        0deg,
+        var(--primary-color) 0%,
+        var(--primary-color) 10%,
+        var(--gradient-primary-color) 25%
+    );
 }
 
-.l-secondary-gradient{
-    background: linear-gradient(180deg, var(--secondary-color) 0%, var(--secondary-color) 50%, var(--grandient-secondary-color) 70%);
+.l-secondary-gradient {
+    background: linear-gradient(
+        180deg,
+        var(--secondary-color) 0%,
+        var(--secondary-color) 50%,
+        var(--grandient-secondary-color) 70%
+    );
 }

@@ -55,7 +55,7 @@ export default function PageProduct({
             </div>
         );
         const productInfo = (
-            <div className="info">
+            <div className="o-pp-ct-info">
                 <h4 className="name">{meal.strMeal}</h4>
                 {productIngredients ?? 'product ingredients was not found'}
                 <h4 className="price">
@@ -74,7 +74,7 @@ export default function PageProduct({
         );
 
         return (
-            <div className="content">
+            <div className="o-pp-content">
                 {productImage}
                 {productInfo}
                 {addButton}

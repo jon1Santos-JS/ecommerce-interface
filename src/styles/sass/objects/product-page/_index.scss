@@ -1,0 +1,13 @@
+.o-product-page {
+    align-items: center;
+    display: flex;
+    font-size: calc(var(--app-base-font-size));
+    height: calc(var(--app-base-measure) * 80);
+    justify-content: center;
+    padding-top: calc(var(--app-base-measure) * 6);
+    position: relative;
+
+    @media screen and (width <= 768px) {
+        padding-top: 0;
+    }
+}

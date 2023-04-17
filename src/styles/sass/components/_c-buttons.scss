@@ -1,5 +1,5 @@
-.c-button{
+.c-button {
     cursor: pointer;
-    user-select: none;
     padding: calc(var(--app-base-measure)) calc(var(--app-base-measure) * 2);
+    user-select: none;
 }

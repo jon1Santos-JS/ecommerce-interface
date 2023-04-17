@@ -1,0 +1,71 @@
+.o-pp-ct-info {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--app-base-measure) * 2);
+    height: 100%;
+    text-align: center;
+    width: calc(var(--app-base-measure) * 30);
+
+    @media screen and (width <= 768px) {
+        display: block;
+        margin: auto 0;
+        margin-top: calc(var(--app-base-measure) * 2);
+    }
+
+    .name {
+        margin: 0 auto auto;
+        text-align: center;
+        width: 100%;
+
+        @media screen and (width <= 768px) {
+            margin: calc(var(--app-base-measure) / 20) auto;
+        }
+    }
+
+    .ingredients {
+        @media screen and (width <= 768px) {
+            margin: calc(var(--app-base-measure) * 4) auto;
+        }
+
+        .title {
+            font-size: calc(var(--app-base-font-size) / 1.2);
+            font-weight: bold;
+            margin: calc(var(--app-base-measure) * 2) 0;
+        }
+
+        .list-box {
+            display: block;
+            margin: calc(var(--app-base-measure) * 2);
+
+            .list {
+                border-radius: 0.4rem;
+                font-size: calc(var(--app-base-font-size) / 1.2);
+                height: calc(var(--app-base-measure) * 8);
+                line-height: calc(var(--app-base-font-size) * 1.2);
+                overflow-y: auto;
+                padding: calc(var(--app-base-font-size) / 2.4);
+                text-align: center;
+
+                @media screen and (width <= 768px) {
+                    height: calc(var(--app-base-measure) * 6);
+                    padding: calc(var(--app-base-font-size) / 1.1);
+                }
+
+                &::-webkit-scrollbar {
+                    background: var(--thirty-color);
+                    width: calc(var(--app-base-measure));
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: var(--primary-color);
+                }
+            }
+        }
+    }
+
+    .price {
+        font-size: calc(var(--app-base-font-size));
+        margin-top: calc(var(--app-base-measure) * 5);
+    }
+}

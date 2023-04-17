@@ -1,0 +1,19 @@
+.o-product-list {
+    display: grid;
+    grid-gap: calc(var(--app-base-measure) * 4);
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(calc(var(--app-base-measure) * 20), 1fr)
+    );
+    justify-content: center;
+    justify-items: center;
+    padding: calc(var(--app-base-measure) * 4);
+    place-items: center;
+
+    @media screen and (width <= 768px) {
+        grid-template-columns: repeat(
+            2,
+            minmax(calc(var(--app-base-measure) * 20), 1fr)
+        );
+    }
+}

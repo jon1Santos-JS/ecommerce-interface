@@ -1,0 +1,32 @@
+.o-pp-content {
+    align-items: flex-start;
+    animation: product-list-appeared 0.4s ease;
+    display: flex;
+    gap: calc(var(--app-base-measure) * 10);
+    justify-content: center;
+
+    @media screen and (width <= 768px) {
+        align-items: center;
+        flex-direction: column;
+        gap: calc(var(--app-base-measure) * 2);
+    }
+
+    .image {
+        height: calc(var(--app-base-measure) * 30);
+        position: relative;
+        width: calc(var(--app-base-measure) * 30);
+
+        @media screen and (width <= 768px) {
+            height: calc(var(--app-base-measure) * 15);
+            width: calc(var(--app-base-measure) * 15);
+        }
+    }
+
+    .add-button {
+        align-self: center;
+
+        @media screen and (width <= 768px) {
+            margin-top: calc(var(--app-base-measure) * 2);
+        }
+    }
+}

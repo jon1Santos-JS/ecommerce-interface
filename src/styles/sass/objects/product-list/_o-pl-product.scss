@@ -1,0 +1,62 @@
+.o-pl-product {
+    animation: product-list-appeared 0.4s ease;
+    border-radius: 0.6rem;
+    font-size: calc(var(--app-base-font-size) / 1.2);
+    user-select: none;
+    width: 100%;
+
+    --product-base: calc(var(--app-base-element-measure) * 8);
+
+    &:hover .image {
+        transform: rotate(0.001turn) scale(105%);
+    }
+
+    .content {
+        cursor: pointer;
+        overflow: hidden;
+        width: 100%;
+
+        .image-structure {
+            overflow: hidden;
+            position: relative;
+
+            .image {
+                height: calc(var(--product-base) / 8 * 12);
+                position: relative;
+                transition: transform 0.2s ease;
+            }
+
+            .bg-image {
+                height: 100%;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 100%;
+            }
+        }
+
+        .info {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            height: calc(var(--product-base) / 1.4);
+            justify-content: center;
+            padding: calc(var(--app-base-measure) * 2)
+                calc(var(--app-base-measure) * 2)
+                calc(var(--app-base-measure) * 4)
+                calc(var(--app-base-measure) * 2);
+
+            .name {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                padding: calc(var(--app-base-measure) * 2);
+                white-space: nowrap;
+            }
+
+            .price {
+                text-align: center;
+            }
+        }
+    }
+}

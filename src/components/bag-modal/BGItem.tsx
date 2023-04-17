@@ -36,7 +36,7 @@ export default function BGItem({
 
         return (
             <div
-                className="product c-button l-regular-button"
+                className="o-bg-ct-product c-button l-regular-button"
                 onClick={() => {
                     setItem({ product, amount });
                     onOpenProductModal();

@@ -1,85 +1,88 @@
-.o-close-product-modal{
-    position: fixed;
-    z-index: var(--modal-index);
-    width: 100%;
+.o-close-product-modal {
     bottom: 0;
     height: 100%;
+    position: fixed;
     transition: transform 0.4s ease;
+    width: 100%;
+    z-index: var(--modal-index);
 }
 
-.o-product-modal{
+.o-product-modal {
+    align-items: center;
+    border-radius: 0.4rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
+    font-size: calc(var(--app-base-font-size) / 1.2);
     gap: calc(var(--app-base-measure) * 4);
-    z-index: var(--modal-index);
+    height: calc(var(--app-base-measure) * 70);
+    justify-content: center;
     left: 50%;
+    padding: calc(var(--app-base-measure) * 4) calc(var(--app-base-measure) * 2);
+    position: fixed;
     top: 50%;
     transform: translate(-50%, -50%);
-    height: calc(var(--app-base-measure) * 70);
-    width: calc(var(--app-base-measure) * 70);
-    padding: calc(var(--app-base-measure) * 4) calc(var(--app-base-measure) * 2);
-    font-size: calc(var(--app-base-font-size) / 1.2);
-    border-radius: 0.4rem;
     transition: transform 0.4s ease;
+    width: calc(var(--app-base-measure) * 70);
+    z-index: var(--modal-index);
 
-    @media screen and (max-width: 768px) {
-        top: 40%;
+    @media screen and (width <= 768px) {
         height: calc(var(--app-base-measure) * 50);
+        top: 40%;
         width: calc(var(--app-base-measure) * 40);
     }
 
-    & .close-icon{
+    .close-icon {
         --close-icon-measure: calc(var(--app-base-measure) * 2);
-        position: fixed;
-        top: 0;
+
+        height: var(--close-icon-measure);
         left: 0;
         margin: calc(var(--app-base-measure) * 1.2);
+        position: fixed;
+        top: 0;
         width: var(--close-icon-measure);
-        height: var(--close-icon-measure);
 
-        @media screen and (max-width: 768px) {
-            --close-icon-measure: calc(var(--app-base-measure) * 2.5)
+        @media screen and (width <= 768px) {
+            --close-icon-measure: calc(var(--app-base-measure) * 2.5);
         }
     }
 
-    & .image{
+    .image {
+        height: calc(var(--app-base-measure) * 30);
         position: relative;
         width: calc(var(--app-base-measure) * 30);
-        height: calc(var(--app-base-measure) * 30);
 
-        @media screen and (max-width: 768px) {
-            width: calc(var(--app-base-measure) * 20);
+        @media screen and (width <= 768px) {
             height: calc(var(--app-base-measure) * 20);
+            width: calc(var(--app-base-measure) * 20);
         }
     }
 
-    & .name{
+    .name {
         font-size: calc(var(--app-base-font-size));
-        width: 60%;
         text-align: center;
+        width: 60%;
     }
 
-    & .add-subtract-group{
+    .add-subtract-group {
         display: flex;
         gap: calc(var(--app-base-measure) * 6);
 
-        & .subtract-item{
-            padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
+        .subtract-item {
+            padding: calc(var(--app-base-measure) / 2)
+                calc(var(--app-base-measure) / 1);
         }
 
-        & .amount{
+        .amount {
+            padding: calc(var(--app-base-measure) / 2)
+                calc(var(--app-base-measure) / 1);
             text-align: center;
-            width: calc(var(--app-base-measure) * 5);
-            padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
             user-select: none;
+            width: calc(var(--app-base-measure) * 5);
         }
 
-        & .add-item{
-            padding: calc(var(--app-base-measure) / 2) calc(var(--app-base-measure) / 1);
+        .add-item {
+            padding: calc(var(--app-base-measure) / 2)
+                calc(var(--app-base-measure) / 1);
         }
-
     }
 }

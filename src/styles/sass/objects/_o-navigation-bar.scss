@@ -1,12 +1,13 @@
-.o-navigation-bar{
-    display: flex;
-    justify-content: space-between;
+.o-navigation-bar {
     align-items: center;
-    position: fixed;
-    padding: 0 calc(var(--app-base-measure) * 10);
-    top: 0;
-    z-index: var(--navigation-index);
+    animation: navigation-appeared 0.4s ease;
+    display: flex;
     height: calc(var(--app-base-measure) * 8);
-    width: 100%;
+    justify-content: space-between;
     opacity: 0.75;
+    padding: 0 calc(var(--app-base-measure) * 10);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: var(--navigation-index);
 }

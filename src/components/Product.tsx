@@ -45,7 +45,7 @@ export default function Product({ product }: ProductProps) {
 
     return (
         <Link
-            className="product l-primary-style o-product-card"
+            className="o-pl-product l-primary-style o-product-card"
             href={`products/${product && product.idMeal}`}
         >
             {renderProduct()}

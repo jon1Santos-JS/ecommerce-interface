@@ -1,27 +1,27 @@
-.l-success-button{
-    &:hover{
+.l-success-button {
+    &:hover {
         background-color: var(--success-color);
         color: var(--secondary-color);
     }
 }
 
-.l-warning-button{
-    &:hover{
+.l-warning-button {
+    &:hover {
         background-color: var(--warning-color);
         color: var(--secondary-color);
     }
 }
 
-.l-regular-button{
-    &:hover{
+.l-regular-button {
+    &:hover {
         background-color: var(--thirty-color);
     }
 }
 
-.l-primary-button{
+.l-primary-button {
     border: solid calc(var(--app-base-measure) / 4) var(--primary-color);
 
-    @media screen and (max-width: 768px) {
+    @media screen and (width <= 768px) {
         border: solid calc(var(--app-base-measure) / 6) var(--primary-color);
     }
 }

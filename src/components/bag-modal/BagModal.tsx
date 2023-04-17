@@ -47,7 +47,7 @@ export default function BagModal({
                 onClick={(e) => e.stopPropagation()}
                 className={`o-bag-modal l-primary-style ${closeModalLogic}`}
             >
-                <div className="content l-secondary-style">
+                <div className="o-bg-content l-secondary-style">
                     <div className="top-bg-gradient l-secondary-gradient"></div>
                     <div
                         className="close-icon c-button"
