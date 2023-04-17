@@ -19,7 +19,10 @@ export default function Product({ product }: ProductProps) {
 
     const productImage = (
         <div className="image-structure">
-            <div className="image ">
+            <div
+                className="image"
+                onClick={() => console.log('em cima de mim')}
+            >
                 <PreImage
                     attributes={{
                         alt: product.strMeal,
@@ -28,7 +31,6 @@ export default function Product({ product }: ProductProps) {
                         blurDataUrl: product.strMealThumb,
                     }}
                     objectFit="cover"
-                    borderRadius="0.4rem"
                 />
             </div>
             <div className="bg-image l-primary-gradient"></div>

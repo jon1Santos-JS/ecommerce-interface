@@ -20,7 +20,7 @@ export default function ProductModal({
     onClose,
     isOpen,
 }: ProductModalProps) {
-    const closeModalLogic = `${isOpen ? '' : 'is-closed'}`;
+    const closeModalLogic = `${isOpen ? '' : 'is-product-modal-closed'}`;
 
     return (
         <>

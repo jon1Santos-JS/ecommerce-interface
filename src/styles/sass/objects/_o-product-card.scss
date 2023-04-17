@@ -1,3 +1,8 @@
 .o-product-card{
-    border: solid calc(var(--app-base-measure) / 3.5) var(--secondary-color);
+    border: solid calc(var(--app-base-measure) / 4) var(--thirty-color);
+    box-shadow: var(--small-box-shadow);
+
+    @media screen and (max-width: 768px) {
+        border: solid calc(var(--app-base-measure) / 6) var(--thirty-color);
+    }
 }

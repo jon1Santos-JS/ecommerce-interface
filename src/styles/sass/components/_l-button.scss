@@ -19,5 +19,9 @@
 }
 
 .l-primary-button{
-    border: solid 1.5px var(--primary-color);
+    border: solid calc(var(--app-base-measure) / 4) var(--primary-color);
+
+    @media screen and (max-width: 768px) {
+        border: solid calc(var(--app-base-measure) / 6) var(--primary-color);
+    }
 }
