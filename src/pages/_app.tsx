@@ -40,19 +40,19 @@ export default function App({ Component, pageProps }: AppProps) {
     };
 
     // TO TEST THE APP
-    const addProductToTest = () => {
-        if (!pageProps.productList) return;
-        dispatch({ type: BagModalActionTypes.CLEAR_BAG });
+    // const addProductToTest = () => {
+    //     if (!pageProps.productList) return;
+    //     dispatch({ type: BagModalActionTypes.CLEAR_BAG });
 
-        const list: ProductType[] = pageProps.productList;
+    //     const list: ProductType[] = pageProps.productList;
 
-        list.map((product) => {
-            dispatch({
-                type: BagModalActionTypes.ADD_PRODUCT,
-                product: product,
-            });
-        });
-    };
+    //     list.map((product) => {
+    //         dispatch({
+    //             type: BagModalActionTypes.ADD_PRODUCT,
+    //             product: product,
+    //         });
+    //     });
+    // };
 
     const isProductPage = pageProps.meal ? (
         <Component addProductToBagModal={addProductToBagModal} {...pageProps} />
@@ -62,7 +62,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
     useEffect(() => {
         dispatch({ type: BagModalActionTypes.HYDRATE });
-        addProductToTest();
+        // addProductToTest();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
