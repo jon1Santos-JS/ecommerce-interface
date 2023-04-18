@@ -42,7 +42,7 @@ yarn dev</pre>
 
 * TheMealDB - to request meal list (https://www.themealdb.com/)
 
-<hr style="border:1px solid gray">
+<hr style="border:0.2px solid gray">
 
 ### Skilled
 
