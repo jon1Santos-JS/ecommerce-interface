@@ -44,7 +44,7 @@ yarn dev</pre>
 
 <hr>
 
-### To Practice
+### Skilled
 
 #### Typescript
 
