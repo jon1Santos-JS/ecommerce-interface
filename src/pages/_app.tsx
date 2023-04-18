@@ -39,7 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
         dispatch(action);
     };
 
-    // TO TEST THE APP
+    // TO PUT ALL THE PRODUCTS INSIDE SHOPPING-BAG BY LOADING THE 'INDEX' PAGE (TO TEST THE APP)
     // const addProductToTest = () => {
     //     if (!pageProps.productList) return;
     //     dispatch({ type: BagModalActionTypes.CLEAR_BAG });
