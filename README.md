@@ -12,12 +12,16 @@ yarn dev</pre>
 
 ## Developing
 
+<hr>
+
 ### Built With
 
 * Next.js
 * Sass
 * Typescript
 * React
+
+<hr>
 
 ### Style guide
 
@@ -32,9 +36,13 @@ yarn dev</pre>
 * OOCSS
 * NAMESPACES
 
+<hr>
+
 ### Api Reference
 
 * TheMealDB - to request meal list (https://www.themealdb.com/)
+
+<hr>
 
 ### To Practice
 
