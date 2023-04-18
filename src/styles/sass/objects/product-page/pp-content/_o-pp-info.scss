@@ -1,4 +1,4 @@
-.o-pp-ct-info {
+.o-pp-info {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,6 @@
     }
 
     .name {
-        margin: 0 auto auto;
         text-align: center;
         width: 100%;
 
@@ -54,7 +53,7 @@
 
                 &::-webkit-scrollbar {
                     background: var(--thirty-color);
-                    width: calc(var(--app-base-measure));
+                    width: var(--app-base-measure);
                 }
 
                 &::-webkit-scrollbar-thumb {
@@ -65,7 +64,7 @@
     }
 
     .price {
-        font-size: calc(var(--app-base-font-size));
+        font-size: var(--app-base-font-size);
         margin-top: calc(var(--app-base-measure) * 5);
     }
 }

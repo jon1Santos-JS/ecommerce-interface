@@ -7,7 +7,7 @@ import {
     BagModalItem,
     bagModalReducer,
 } from '@/state/reducers/bagModalReducer';
-import { Meal } from '@/state/product';
+import { Meal, ProductType } from '@/state/product';
 import { getProductPrice } from '@/hook/useStorage';
 import { BagModalActionTypes } from '@/state/action-types/bagModal';
 import ProductModal from '@/components/bag-modal/ProductModal';
@@ -39,6 +39,21 @@ export default function App({ Component, pageProps }: AppProps) {
         dispatch(action);
     };
 
+    // TO TEST THE APP
+    const addProductToTest = () => {
+        if (!pageProps.productList) return;
+        dispatch({ type: BagModalActionTypes.CLEAR_BAG });
+
+        const list: ProductType[] = pageProps.productList;
+
+        list.map((product) => {
+            dispatch({
+                type: BagModalActionTypes.ADD_PRODUCT,
+                product: product,
+            });
+        });
+    };
+
     const isProductPage = pageProps.meal ? (
         <Component addProductToBagModal={addProductToBagModal} {...pageProps} />
     ) : (
@@ -47,6 +62,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
     useEffect(() => {
         dispatch({ type: BagModalActionTypes.HYDRATE });
+        addProductToTest();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => onCloseModals(), [router]);

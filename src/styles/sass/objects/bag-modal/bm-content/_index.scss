@@ -1,6 +1,6 @@
-.o-bg-content {
+.o-bm-content {
     display: block;
-    height: 80%;
+    height: 85%;
     overflow: auto;
     position: relative;
 
@@ -13,7 +13,7 @@
         background: var(--primary-color);
     }
 
-    .top-bg-gradient {
+    .top-bm-gradient {
         height: 10%;
         position: fixed;
         width: 100%;
@@ -25,16 +25,13 @@
     }
 
     .close-icon {
-        --close-icon-measure: calc(var(--app-base-measure) * 2);
-
-        height: var(--close-icon-measure);
+        height: calc(var(--app-base-measure) * 2);
         margin: var(--app-base-measure);
         position: fixed;
-        width: var(--close-icon-measure);
         z-index: var(--component-index);
 
         @media screen and (width <= 768px) {
-            --close-icon-measure: calc(var(--app-base-measure) * 2.5);
+            height: calc(var(--app-base-measure) * 2.5);
         }
     }
 
@@ -48,8 +45,7 @@
             flex-direction: column;
             gap: calc(var(--app-base-measure) * 4);
             justify-content: space-around;
-            padding: calc(var(--app-base-measure) * 4) 0
-                calc(var(--app-base-measure) * 10) 0;
+            padding-top: calc(var(--app-base-measure) * 4);
             width: 100%;
         }
     }

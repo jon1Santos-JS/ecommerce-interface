@@ -2,11 +2,11 @@
 @forward 'product-list/o-pl-product';
 @forward 'o-home-page';
 @forward 'bag-modal';
-@forward 'bag-modal/content';
-@forward 'bag-modal/content/o-bg-ct-product';
+@forward 'bag-modal/bm-content';
+@forward 'bag-modal/bm-content/o-bm-product';
 @forward 'product-page';
 @forward 'product-page/pp-content';
-@forward 'product-page/pp-content/o-pp-ct-info';
+@forward 'product-page/pp-content/o-pp-info';
 @forward 'o-navigation-bar';
 @forward 'o-app';
 @forward 'o-product-modal';

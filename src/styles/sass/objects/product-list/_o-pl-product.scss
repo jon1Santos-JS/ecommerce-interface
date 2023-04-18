@@ -1,11 +1,13 @@
 .o-pl-product {
-    animation: product-list-appeared 0.4s ease;
+    animation: product-appeared 0.4s ease;
     border-radius: 0.6rem;
     font-size: calc(var(--app-base-font-size) / 1.2);
     user-select: none;
     width: 100%;
 
-    --product-base: calc(var(--app-base-element-measure) * 8);
+    --product-base: calc(
+        var(--app-base-element-measure) * 8
+    ); /// HEIGHT IMAGE AND HEIGHT INFO
 
     &:hover .image {
         transform: rotate(0.001turn) scale(105%);
@@ -14,14 +16,13 @@
     .content {
         cursor: pointer;
         overflow: hidden;
-        width: 100%;
 
         .image-structure {
             overflow: hidden;
             position: relative;
 
             .image {
-                height: calc(var(--product-base) / 8 * 12);
+                height: calc(var(--product-base) / 8 * 13);
                 position: relative;
                 transition: transform 0.2s ease;
             }

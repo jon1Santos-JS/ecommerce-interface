@@ -32,17 +32,14 @@
     }
 
     .close-icon {
-        --close-icon-measure: calc(var(--app-base-measure) * 2);
-
-        height: var(--close-icon-measure);
+        height: calc(var(--app-base-measure) * 2);
         left: 0;
         margin: calc(var(--app-base-measure) * 1.2);
         position: fixed;
         top: 0;
-        width: var(--close-icon-measure);
 
         @media screen and (width <= 768px) {
-            --close-icon-measure: calc(var(--app-base-measure) * 2.5);
+            height: calc(var(--app-base-measure) * 2.5);
         }
     }
 
@@ -68,21 +65,18 @@
         gap: calc(var(--app-base-measure) * 6);
 
         .subtract-item {
-            padding: calc(var(--app-base-measure) / 2)
-                calc(var(--app-base-measure) / 1);
+            padding: calc(var(--app-base-measure) / 2) var(--app-base-measure);
         }
 
         .amount {
-            padding: calc(var(--app-base-measure) / 2)
-                calc(var(--app-base-measure) / 1);
+            padding: calc(var(--app-base-measure) / 2) var(--app-base-measure);
             text-align: center;
             user-select: none;
-            width: calc(var(--app-base-measure) * 5);
+            width: calc(var(--app-base-measure) * 4);
         }
 
         .add-item {
-            padding: calc(var(--app-base-measure) / 2)
-                calc(var(--app-base-measure) / 1);
+            padding: calc(var(--app-base-measure) / 2) var(--app-base-measure);
         }
     }
 }
