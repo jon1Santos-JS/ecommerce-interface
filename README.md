@@ -44,6 +44,7 @@
 * Dynamic Routes: To generate routes based on food's id.
 * Lib Folder: To share the request function through the pages on server-side.
 * Usereducer: To manipulate values and functions inside shopping-bag state.
+* Local Storage: To store the user shopping-bag state in the browser.
 
 #### Sass
 
