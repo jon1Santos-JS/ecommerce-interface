@@ -40,11 +40,17 @@
 
 #### Typescript
 
+* Local Storage: To store the users shopping-bag state on browser.
+
+#### React
+
+* UseReducer: To manipulate values and functions inside shopping-bag state.
 * Request: To a thirty-party api, to get the food list with informations like 'id' and 'image'.
+
+#### NextJs
+
 * Dynamic Routes: To generate routes based on food's id.
 * Lib Folder: To share the request function through the pages on server-side.
-* UseReducer: To manipulate values and functions inside shopping-bag state.
-* Local Storage: To store the users shopping-bag state in the browser.
 
 #### Sass
 
