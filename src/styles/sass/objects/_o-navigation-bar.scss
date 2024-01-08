@@ -10,4 +10,18 @@
     top: 0;
     width: 100%;
     z-index: var(--navigation-index);
+
+    .bag {
+        animation: scale-quantity 0.2 ease-in;
+        position: relative;
+
+        .items-quantity {
+            border-radius: 50%;
+            padding: calc(var(--app-base-measure));
+            position: absolute;
+            right: -5%;
+            top: -40%;
+            transform: scale(0.8);
+        }
+    }
 }

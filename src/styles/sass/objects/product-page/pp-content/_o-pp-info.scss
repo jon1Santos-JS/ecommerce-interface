@@ -40,14 +40,14 @@
             .list {
                 border-radius: 0.4rem;
                 font-size: calc(var(--app-base-font-size) / 1.2);
-                height: calc(var(--app-base-measure) * 8);
                 line-height: calc(var(--app-base-font-size) * 1.2);
+                max-height: calc(var(--app-base-measure) * 10);
                 overflow-y: auto;
                 padding: calc(var(--app-base-font-size) / 2.4);
                 text-align: center;
 
                 @media screen and (width <= 768px) {
-                    height: calc(var(--app-base-measure) * 6);
+                    max-height: calc(var(--app-base-measure) * 10);
                     padding: calc(var(--app-base-font-size) / 1.1);
                 }
 
@@ -65,6 +65,5 @@
 
     .price {
         font-size: var(--app-base-font-size);
-        margin-top: calc(var(--app-base-measure) * 5);
     }
 }

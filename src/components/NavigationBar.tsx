@@ -4,12 +4,14 @@ interface NavigationBarProps {
     onOpenBagModal: () => void;
     onCloseBagModal: () => void;
     isBagModalOpen: boolean;
+    totalItems: number;
 }
 
 export default function NavigationBar({
     onOpenBagModal,
     onCloseBagModal,
     isBagModalOpen,
+    totalItems,
 }: NavigationBarProps) {
     return (
         <nav className="o-navigation-bar l-primary-style">
@@ -23,6 +25,11 @@ export default function NavigationBar({
                 }
             >
                 Bag
+                {totalItems > 0 ? (
+                    <span className="items-quantity l-primary-style">
+                        {totalItems}
+                    </span>
+                ) : null}
             </button>
         </nav>
     );
