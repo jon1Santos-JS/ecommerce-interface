@@ -26,7 +26,7 @@ export default function NavigationBar({
             >
                 Bag
                 {totalItems > 0 ? (
-                    <span className="items-quantity l-primary-style">
+                    <span className="items-quantity l-secondary-style">
                         {totalItems}
                     </span>
                 ) : null}

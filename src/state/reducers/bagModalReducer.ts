@@ -9,6 +9,7 @@ export interface BagModalItem {
 
 export interface BagModalState {
     items: BagModalItem[];
+    totalItems: number;
     total: number;
 }
 
@@ -45,6 +46,7 @@ export function bagModalReducer(state: BagModalState, action: Action) {
                 return {
                     ...state,
                     items: newItems,
+                    totalItems: state.totalItems + 1,
                     total: state.total + foundItem.product.price,
                 };
             } else {
@@ -58,6 +60,7 @@ export function bagModalReducer(state: BagModalState, action: Action) {
                 return {
                     ...state,
                     items: newItems,
+                    totalItems: state.totalItems + 1,
                     total: state.total + action.product.price,
                 };
             }
@@ -75,6 +78,7 @@ export function bagModalReducer(state: BagModalState, action: Action) {
                 return {
                     ...state,
                     items: newItems,
+                    totalItems: state.totalItems - 1,
                     total: state.total - foundItem.product.price,
                 };
             }
@@ -91,11 +95,12 @@ export function bagModalReducer(state: BagModalState, action: Action) {
             return {
                 ...state,
                 items: newItems,
+                totalItems: state.totalItems - 1,
                 total: state.total - foundItem.product.price,
             };
         }
         case BagModalActionTypes.CLEAR_BAG: {
-            return { ...state, items: [], total: 0 };
+            return { ...state, items: [], totalItems: 0, total: 0 };
         }
         //HYDRATING CLIENT STATE
         case BagModalActionTypes.EXCLUDE_PRODUCT: {
@@ -105,7 +110,7 @@ export function bagModalReducer(state: BagModalState, action: Action) {
 
             if (!itemToExclude || !itemToExclude.product) return { ...state };
 
-            const amountToSubtract =
+            const priceAmountToSubtract =
                 itemToExclude.product?.price * itemToExclude.amount;
 
             const newItems = excludeProduct(state.items, itemToExclude.product);
@@ -113,7 +118,8 @@ export function bagModalReducer(state: BagModalState, action: Action) {
             return {
                 ...state,
                 items: newItems,
-                total: state.total - amountToSubtract,
+                totalItems: state.totalItems - itemToExclude.amount,
+                total: state.total - priceAmountToSubtract,
             };
         }
         case BagModalActionTypes.HYDRATE: {

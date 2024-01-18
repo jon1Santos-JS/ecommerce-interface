@@ -21,6 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
     const [displayProductModal, setDisplayProductModal] = useState(false);
     const [bagModalState, dispatch] = useReducer(bagModalReducer, {
         items: [],
+        totalItems: 0,
         total: 0,
     });
     const [bagModalItem, getBagModalItemToEdit] =
@@ -60,7 +61,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     onOpenBagModal={onOpenBagModal}
                     onCloseBagModal={() => setDisplayBagModal(false)}
                     isBagModalOpen={displayBagModal}
-                    totalItems={bagModalState.items.length}
+                    totalItems={bagModalState.totalItems}
                 />
                 {isProductPage}
                 <BagModal

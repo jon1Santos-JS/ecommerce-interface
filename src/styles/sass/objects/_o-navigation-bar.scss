@@ -16,10 +16,16 @@
         position: relative;
 
         .items-quantity {
+            align-items: center;
             border-radius: 50%;
+            display: flex;
+            font-weight: bold;
+            height: calc(var(--app-base-measure) * 3);
+            justify-content: center;
+            min-width: calc(var(--app-base-measure) * 3);
             padding: calc(var(--app-base-measure));
             position: absolute;
-            right: -5%;
+            right: -10%;
             top: -40%;
             transform: scale(0.8);
         }
