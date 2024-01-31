@@ -1,8 +1,20 @@
-# simple-website-template
+<h1 align="center" dir="auto" height="30">
+  Ecommerce Template
+    <p>
+    </p>
+</h1>
 
-<hr>
+<p align="center">
+<a  href="https://mini-ecommerce-refactoring.vercel.app/">
+<img target=_blank height="50px" src="https://media0.giphy.com/media/5ABGt7KDXJ62zg7oI0/giphy.gif?cid=790b761123aba84c737efe59273d3d75b3dbaef458bf13a4&rid=giphy.gif&ct=s" />
+</a>
+</p>
 
-[<img target=_blank height="50px" src="https://media0.giphy.com/media/5ABGt7KDXJ62zg7oI0/giphy.gif?cid=790b761123aba84c737efe59273d3d75b3dbaef458bf13a4&rid=giphy.gif&ct=s" />](https://mini-ecommerce-refactoring.vercel.app/)
+#
+
+### Porpuse
+
+This application was created to test dynamic routes in NextJS
 
 #
 
